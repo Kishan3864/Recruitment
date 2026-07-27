@@ -7,8 +7,8 @@ export const homePage: HomePageContent = {
     headingHighlight: "companies forward",
     subheading:
       "We connect employers with rigorously verified professionals — and candidates with roles that actually fit. Transparent process, real screening, zero noise.",
-    primaryCta: { label: "Hire Talent", href: "/for-employers" },
-    secondaryCta: { label: "Browse Open Roles", href: "/jobs" },
+    primaryCta: { label: "Browse Jobs", href: "/jobs" },
+    secondaryCta: { label: "Contact Us", href: "/contact" },
     stats: [
       { value: 6200, suffix: "+", label: "successful placements" },
       { value: 300, suffix: "+", label: "hiring partners" },
@@ -34,38 +34,6 @@ export const homePage: HomePageContent = {
     description:
       "From a single critical hire to an entire embedded recruitment engine — pick the engagement that fits, and we bring the network, screening and speed.",
     cta: { label: "Explore all services", href: "/services" },
-  },
-  audience: {
-    intro: {
-      eyebrow: "Two audiences, one standard",
-      heading: "Built for employers. Loved by candidates.",
-      description:
-        "Great placements happen when both sides are treated with the same rigour and respect. That's the whole model.",
-    },
-    employers: {
-      title: "For Employers",
-      description:
-        "Stop filtering noise. Get a shortlist of three to five interview-ready, reference-checked candidates within five working days.",
-      bullets: [
-        "Shortlist in 5 working days",
-        "Four-stage screening on every profile",
-        "90-day free replacement guarantee",
-        "One accountable point of contact",
-      ],
-      cta: { label: "Start hiring", href: "/for-employers" },
-    },
-    candidates: {
-      title: "For Candidates",
-      description:
-        "No spam, no ghosting, no fees — ever. A consultant who knows your market, preps you for every round and negotiates on your side.",
-      bullets: [
-        "Zero cost to you, always",
-        "Your profile shared only with your consent",
-        "Interview prep before every round",
-        "Salary negotiation handled for you",
-      ],
-      cta: { label: "Find your next role", href: "/for-candidates" },
-    },
   },
   stats: {
     eyebrow: "Proof, not promises",
@@ -131,15 +99,8 @@ export const homePage: HomePageContent = {
       },
     ],
   },
-  industries: {
-    eyebrow: "Where we specialise",
-    heading: "Deep desks, not generalists",
-    description:
-      "Each industry desk is run by consultants who've worked in that sector — because you can't screen what you don't understand.",
-    cta: { label: "View all industries", href: "/industries" },
-  },
   whyUs: {
-    eyebrow: "Why Northbridge",
+    eyebrow: "Why Recruitment",
     heading: "What makes our placements stick",
     description:
       "Anyone can send resumes. We're built to be accountable for what happens after the joining date.",
@@ -237,8 +198,8 @@ export const homePage: HomePageContent = {
     heading: "Ready when you are",
     description:
       "Whether you're hiring your next critical role or searching for your own — start with a conversation, not a form-filling marathon.",
-    primaryCta: { label: "Hire Talent", href: "/for-employers" },
-    secondaryCta: { label: "Browse Open Roles", href: "/jobs" },
+    primaryCta: { label: "Browse Jobs", href: "/jobs" },
+    secondaryCta: { label: "Contact Us", href: "/contact" },
     note: "Employers hear back within 4 business hours. Candidates within 2 working days.",
   },
 };

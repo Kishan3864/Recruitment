@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Building2, Clock, Mail, MapPin, Phone } from "lucide-react";
+
+import officePhoto from "../../../public/images/office.jpg";
 
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/sections/page-hero";
@@ -85,6 +88,14 @@ export default async function ContactPage() {
             <p className="mt-8 rounded-2xl border border-brand-200 bg-brand-50/70 p-4 text-sm leading-relaxed text-brand-800">
               {page.reachUs.responsePromise}
             </p>
+            <div className="relative mt-8 hidden overflow-hidden rounded-3xl border-4 border-white shadow-lg lg:block">
+              <Image
+                src={officePhoto}
+                alt=""
+                sizes="380px"
+                className="aspect-[4/3] w-full object-cover"
+              />
+            </div>
           </Reveal>
 
           {/* Form */}

@@ -49,23 +49,6 @@ export interface ApplyFormCopy {
   messages: FormMessages;
 }
 
-export interface LeadFormCopy {
-  title: string;
-  subtitle: string;
-  fields: {
-    company: FieldCopy;
-    fullName: FieldCopy;
-    email: FieldCopy;
-    phone: FieldCopy;
-    hiringFor: FieldCopy;
-    headcount: FieldCopy;
-    message: FieldCopy;
-  };
-  headcountOptions: string[];
-  consent: string;
-  messages: FormMessages;
-}
-
 export interface ContactFormCopy {
   title: string;
   subtitle: string;
@@ -94,14 +77,8 @@ export interface HomePageContent {
   };
   logoStrip: { heading: string };
   services: SectionIntro & { cta: CtaContent };
-  audience: {
-    intro: SectionIntro;
-    employers: { title: string; description: string; bullets: string[]; cta: CtaContent };
-    candidates: { title: string; description: string; bullets: string[]; cta: CtaContent };
-  };
   stats: SectionIntro & { items: StatContent[] };
   process: SectionIntro & { steps: ProcessStepContent[] };
-  industries: SectionIntro & { cta: CtaContent };
   whyUs: SectionIntro & { features: FeatureContent[] };
   jobsPreview: SectionIntro & { cta: CtaContent; applyLabel: string };
   testimonials: SectionIntro;
@@ -131,19 +108,6 @@ export interface AboutPageContent {
   timeline: SectionIntro & { milestones: MilestoneContent[] };
   team: SectionIntro;
   trust: SectionIntro & { badges: TrustBadgeContent[] };
-  metaTitle: string;
-  metaDescription: string;
-}
-
-export interface EmployersPageContent {
-  hero: PageHero & { primaryCta: CtaContent; stats: StatContent[] };
-  process: SectionIntro & { steps: ProcessStepContent[] };
-  models: SectionIntro & {
-    items: { icon: string; title: string; description: string; bestFor: string }[];
-  };
-  guarantees: SectionIntro & { items: FeatureContent[] };
-  testimonials: SectionIntro;
-  form: LeadFormCopy;
   metaTitle: string;
   metaDescription: string;
 }
@@ -258,14 +222,6 @@ export interface ServicesPageContent extends ListingPageContent {
   featuresHeading: string;
   outcomesHeading: string;
   otherServicesHeading: string;
-  ctaBanner: { heading: string; description: string; cta: CtaContent };
-}
-
-export interface IndustriesPageContent extends ListingPageContent {
-  explore: string;
-  rolesHeading: string;
-  placementsSuffix: string;
-  otherIndustriesHeading: string;
   ctaBanner: { heading: string; description: string; cta: CtaContent };
 }
 

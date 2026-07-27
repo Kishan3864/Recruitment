@@ -4,27 +4,25 @@ import type {
   CandidatesPageContent,
   CaseStudiesPageContent,
   ContactPageContent,
-  EmployersPageContent,
   FaqPageContent,
-  IndustriesPageContent,
   JobsPageContent,
   NotFoundContent,
   ServicesPageContent,
 } from "@/types/pages";
-import { applyFormCopy, contactFormCopy, leadFormCopy, registerFormCopy } from "./forms";
+import { applyFormCopy, contactFormCopy, registerFormCopy } from "./forms";
 
 export const aboutPage: AboutPageContent = {
   hero: {
     eyebrow: "About us",
     heading: "Recruitment, done the way it should have always been done",
     description:
-      "Northbridge Talent exists because both of our founders were hired badly — and knew the industry could do better than resume roulette.",
+      "Recruitment exists because both of our founders were hired badly — and knew the industry could do better than resume roulette.",
   },
   story: {
     eyebrow: "Our story",
     heading: "From a two-desk office to 6,200 placements",
     paragraphs: [
-      "Northbridge Talent started in 2017 in a two-desk office in Mumbai with an unfashionable idea: measure a recruiter by how long their hires stay, not by how fast a fee gets booked. Our first client was a twelve-person startup; our first placement is now their VP of Engineering.",
+      "Recruitment started in 2017 in a two-desk office in Mumbai with an unfashionable idea: measure a recruiter by how long their hires stay, not by how fast a fee gets booked. Our first client was a twelve-person startup; our first placement is now their VP of Engineering.",
       "That idea forced everything else. If retention is the metric, screening has to be real — so we built four-stage verification when the industry norm was a keyword search and a phone call. If retention is the metric, candidates have to actually want the jobs — so we banned profile-blasting and made per-role consent the rule.",
       "Nine years later we're 85 people across three offices, with desks in eight industries and more than 6,200 placements made. The metric hasn't changed: 96% of our placements pass their 90-day mark, and we publish that number because we're held to it.",
     ],
@@ -109,7 +107,7 @@ export const aboutPage: AboutPageContent = {
     eyebrow: "Leadership",
     heading: "The people behind the placements",
     description:
-      "Every leader at Northbridge has worked inside the industries they now hire for. That's not a coincidence — it's the hiring bar.",
+      "Every leader at Recruitment has worked inside the industries they now hire for. That's not a coincidence — it's the hiring bar.",
   },
   trust: {
     eyebrow: "Trust & compliance",
@@ -142,131 +140,9 @@ export const aboutPage: AboutPageContent = {
       },
     ],
   },
-  metaTitle: "About Northbridge Talent",
+  metaTitle: "About Recruitment",
   metaDescription:
-    "The story, values and team behind Northbridge Talent — 6,200+ placements, 96% 90-day success, and a nine-year zero-penalty compliance record.",
-};
-
-export const employersPage: EmployersPageContent = {
-  hero: {
-    eyebrow: "For employers",
-    heading: "Your next great hire, verified before you ever meet them",
-    description:
-      "Stop spending hiring-manager hours filtering noise. We deliver a shortlist of three to five interview-ready, reference-checked candidates within five working days — with scorecards to prove it.",
-    primaryCta: { label: "Request a callback", href: "#enquiry" },
-    stats: [
-      { value: 5, suffix: " days", label: "to a vetted shortlist" },
-      { value: 92, suffix: "%", label: "offer-to-join rate" },
-      { value: 4, prefix: "<", suffix: "%", label: "replacement invocation" },
-    ],
-  },
-  process: {
-    eyebrow: "The hiring process",
-    heading: "Four steps from brief to onboarded hire",
-    description:
-      "You'll never wonder where things stand. Each step has a defined output, a timeline, and a shared view of progress.",
-    steps: [
-      {
-        icon: "clipboard-list",
-        title: "Intake & scorecard",
-        description:
-          "A 45-minute structured call converts your requirement into a role scorecard: year-one outcomes, must-have capabilities, team context and realistic banding — signed off by you before sourcing begins.",
-      },
-      {
-        icon: "search",
-        title: "Source, screen, verify",
-        description:
-          "Network search plus active headhunting, then four-stage screening: skills assessment, structured behavioural interview, two phone references and document verification. You see the evidence, not just the resume.",
-      },
-      {
-        icon: "users",
-        title: "Shortlist & interviews",
-        description:
-          "3–5 candidates with scorecards, salary expectations and notice periods, within five working days. We schedule every round, brief every candidate, and collect structured feedback both ways.",
-      },
-      {
-        icon: "badge-check",
-        title: "Offer, join, retain",
-        description:
-          "We benchmark the offer, manage negotiation and counter-offer risk, and track notice-period service. After joining: structured 30/60/90-day check-ins, backed by the 90-day replacement guarantee.",
-      },
-    ],
-  },
-  models: {
-    eyebrow: "Engagement models",
-    heading: "Pick the shape that fits your hiring",
-    description:
-      "Different hiring problems need different engines. All four models share the same screening standard.",
-    items: [
-      {
-        icon: "user-check",
-        title: "Success-fee recruitment",
-        description:
-          "Pay only when the candidate joins. Best-effort search across our network with the full four-stage screen.",
-        bestFor: "Best for: ongoing professional hiring, 1–10 roles",
-      },
-      {
-        icon: "target",
-        title: "Retained search",
-        description:
-          "Dedicated researcher and consultant, full market mapping, weekly reporting and a 12-month guarantee.",
-        bestFor: "Best for: leadership and hard-to-fill critical roles",
-      },
-      {
-        icon: "clock",
-        title: "Contract staffing",
-        description:
-          "Pre-vetted contractors deployed in as little as 48 hours, with payroll and compliance handled end to end.",
-        bestFor: "Best for: projects, peaks and interim capacity",
-      },
-      {
-        icon: "layers",
-        title: "Embedded RPO",
-        description:
-          "A recruitment pod inside your business, under your brand, measured on time-to-fill, quality and cost-per-hire.",
-        bestFor: "Best for: 15+ hires a quarter or new-site build-outs",
-      },
-    ],
-  },
-  guarantees: {
-    eyebrow: "Our commitments",
-    heading: "Written into every engagement",
-    description: "These aren't marketing lines — they're contract clauses.",
-    items: [
-      {
-        icon: "handshake",
-        title: "90-day replacement, free",
-        description:
-          "If a permanent hire leaves or is released within 90 days, we refill the role at no fee. Invoked in fewer than 4% of placements.",
-      },
-      {
-        icon: "timer",
-        title: "4-hour response",
-        description:
-          "Every enquiry gets a specialist callback within 4 business hours. Every interview gets feedback chased within 48.",
-      },
-      {
-        icon: "eye",
-        title: "Total transparency",
-        description:
-          "Shared pipeline dashboard, honest feasibility assessments, and salary data from offers we actually closed — not surveys.",
-      },
-      {
-        icon: "lock",
-        title: "Confidentiality guaranteed",
-        description:
-          "Sensitive searches run under NDA with sequenced disclosure. Your plans stay yours until you choose otherwise.",
-      },
-    ],
-  },
-  testimonials: {
-    eyebrow: "Client outcomes",
-    heading: "What employers say after the 90-day mark",
-  },
-  form: leadFormCopy,
-  metaTitle: "Hire Talent — Recruitment for Employers",
-  metaDescription:
-    "Vetted shortlists in 5 working days, four-stage screening, 90-day replacement guarantee and four engagement models. Request a callback within 4 business hours.",
+    "The story, values and team behind Recruitment — 6,200+ placements, 96% 90-day success, and a nine-year zero-penalty compliance record.",
 };
 
 export const candidatesPage: CandidatesPageContent = {
@@ -456,19 +332,19 @@ export const contactPage: ContactPageContent = {
         city: "Mumbai (HQ)",
         address: "Level 8, One Horizon Center, Bandra Kurla Complex, Mumbai 400051",
         phone: "+91 22 4890 2210",
-        email: "hello@northbridgetalent.in",
+        email: "hello@recruitment.in",
       },
       {
         city: "Bengaluru",
         address: "4th Floor, Prestige Atlanta, Koramangala 1st Block, Bengaluru 560034",
         phone: "+91 80 4712 5540",
-        email: "bengaluru@northbridgetalent.in",
+        email: "bengaluru@recruitment.in",
       },
       {
         city: "Gurugram",
         address: "Tower B, DLF Cyber Park, Sector 20, Gurugram 122008",
         phone: "+91 124 466 0925",
-        email: "ncr@northbridgetalent.in",
+        email: "ncr@recruitment.in",
       },
     ],
   },
@@ -483,7 +359,7 @@ export const contactPage: ContactPageContent = {
       "Response promise: employer enquiries within 4 business hours; candidate applications within 2 working days.",
   },
   form: contactFormCopy,
-  metaTitle: "Contact Northbridge Talent",
+  metaTitle: "Contact Recruitment",
   metaDescription:
     "Reach our Mumbai, Bengaluru or Gurugram offices. Employer enquiries answered within 4 business hours; candidates within 2 working days.",
 };
@@ -519,33 +395,11 @@ export const servicesPage: ServicesPageContent = {
     heading: "Not sure which model fits?",
     description:
       "Tell us what you're hiring and a specialist will recommend the right engagement — with honest trade-offs, in one call.",
-    cta: { label: "Request a callback", href: "/for-employers#enquiry" },
+    cta: { label: "Request a callback", href: "/contact" },
   },
   metaTitle: "Recruitment & Staffing Services",
   metaDescription:
     "Permanent recruitment, contract staffing, executive search, RPO, payroll & compliance and HR advisory — one screening standard across all six.",
-};
-
-export const industriesPage: IndustriesPageContent = {
-  hero: {
-    eyebrow: "Industries",
-    heading: "Specialist desks for eight industries",
-    description:
-      "Generalists match keywords; specialists judge capability. Every desk is run by consultants with real experience in their sector.",
-  },
-  explore: "Explore",
-  rolesHeading: "Roles we place",
-  placementsSuffix: "placements made",
-  otherIndustriesHeading: "Other industries",
-  ctaBanner: {
-    heading: "Hiring in one of these sectors?",
-    description:
-      "Talk to the desk that already knows your market, your competitors and your salary bands.",
-    cta: { label: "Talk to a specialist", href: "/for-employers#enquiry" },
-  },
-  metaTitle: "Industries We Serve",
-  metaDescription:
-    "Specialist recruitment desks for technology, BFSI, healthcare, manufacturing, retail, logistics, sales & marketing and education.",
 };
 
 export const caseStudiesPage: CaseStudiesPageContent = {

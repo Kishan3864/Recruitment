@@ -1,13 +1,11 @@
 import { caseStudies } from "@/data/seed/case-studies";
 import { faqs } from "@/data/seed/faqs";
-import { industries } from "@/data/seed/industries";
 import { services } from "@/data/seed/services";
 import { team } from "@/data/seed/team";
 import { testimonials } from "@/data/seed/testimonials";
 import type {
   CaseStudyContent,
   FaqContent,
-  IndustryContent,
   ServiceContent,
   TeamMemberContent,
   TestimonialContent,
@@ -20,15 +18,6 @@ export async function getServices(): Promise<ServiceContent[]> {
 
 export async function getServiceBySlug(slug: string): Promise<ServiceContent | undefined> {
   return services.find((s) => s.slug === slug);
-}
-
-/** Industries */
-export async function getIndustries(): Promise<IndustryContent[]> {
-  return [...industries].sort((a, b) => a.order - b.order);
-}
-
-export async function getIndustryBySlug(slug: string): Promise<IndustryContent | undefined> {
-  return industries.find((i) => i.slug === slug);
 }
 
 /** Testimonials */

@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Lightbulb } from "lucide-react";
+import { ArrowRight, BadgeCheck, Lightbulb } from "lucide-react";
+
+import candidatePhoto from "../../../public/images/candidate.jpg";
+import { DottedRing } from "@/components/graphics/doodles";
 
 import { ApplyForm } from "@/components/forms/apply-form";
 import { FeatureGrid } from "@/components/sections/feature-grid";
@@ -30,33 +34,58 @@ export default async function ForCandidatesPage() {
     <>
       <section className="bg-hero-wash relative overflow-hidden border-b">
         <GridPattern />
-        <Container className="relative py-16 lg:py-24">
-          <Reveal className="max-w-2xl">
-            <p className="mb-4 inline-block rounded-full border border-brand-200 bg-white px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-700 uppercase shadow-xs">
-              {page.hero.eyebrow}
-            </p>
-            <h1 className="text-display-sm text-balance lg:text-display">{page.hero.heading}</h1>
-            <p className="mt-5 text-lg leading-relaxed text-pretty text-muted-foreground">
-              {page.hero.description}
-            </p>
-            <Button asChild size="lg" className="mt-8 bg-cta text-cta-foreground hover:bg-cta/90">
-              <Link href={page.hero.primaryCta.href}>
-                {page.hero.primaryCta.label}
-                <ArrowRight data-icon="inline-end" aria-hidden="true" />
-              </Link>
-            </Button>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t pt-8">
-              {page.hero.stats.map((stat) => (
-                <div key={stat.label}>
-                  <dd className="font-display text-2xl font-bold text-brand-700 sm:text-3xl">
-                    <AnimatedCounter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
-                  </dd>
-                  <dt className="mt-1 text-xs text-muted-foreground sm:text-sm">{stat.label}</dt>
-                </div>
-              ))}
-            </dl>
+        <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1fr_380px] lg:py-24">
+          <div>
+            <Reveal className="max-w-2xl">
+              <p className="mb-4 inline-block rounded-full border border-brand-200 bg-white px-3.5 py-1 text-xs font-semibold tracking-wide text-brand-700 uppercase shadow-xs">
+                {page.hero.eyebrow}
+              </p>
+              <h1 className="text-display-sm text-balance lg:text-display">{page.hero.heading}</h1>
+              <p className="mt-5 text-lg leading-relaxed text-pretty text-muted-foreground">
+                {page.hero.description}
+              </p>
+              <Button asChild size="lg" className="mt-8 bg-cta text-cta-foreground hover:bg-cta/90">
+                <Link href={page.hero.primaryCta.href}>
+                  {page.hero.primaryCta.label}
+                  <ArrowRight data-icon="inline-end" aria-hidden="true" />
+                </Link>
+              </Button>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t pt-8">
+                {page.hero.stats.map((stat) => (
+                  <div key={stat.label}>
+                    <dd className="font-display text-2xl font-bold text-brand-700 sm:text-3xl">
+                      <AnimatedCounter
+                        value={stat.value}
+                        prefix={stat.prefix}
+                        suffix={stat.suffix}
+                      />
+                    </dd>
+                    <dt className="mt-1 text-xs text-muted-foreground sm:text-sm">{stat.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+          <Reveal delay={0.2} className="relative hidden lg:block" y={32}>
+            <DottedRing className="absolute -top-8 -left-8 size-32 motion-safe:animate-[spin_40s_linear_infinite]" />
+            <div className="relative overflow-hidden rounded-3xl border-4 border-white shadow-xl">
+              <Image
+                src={candidatePhoto}
+                alt=""
+                sizes="380px"
+                className="aspect-[4/5] w-full object-cover object-top"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-brand-950/30 via-transparent to-transparent"
+              />
+            </div>
+            <div className="absolute bottom-8 -left-6 flex animate-float items-center gap-2.5 rounded-2xl border border-brand-100 bg-white/95 px-4 py-3 shadow-lg backdrop-blur">
+              <BadgeCheck className="size-5 text-brand-600" aria-hidden="true" />
+              <span className="font-display text-sm font-semibold">{page.hero.eyebrow}</span>
+            </div>
           </Reveal>
         </Container>
       </section>

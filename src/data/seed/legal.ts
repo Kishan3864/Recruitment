@@ -6,7 +6,7 @@ export const legalPages: LegalPageContent[] = [
     title: "Privacy Policy",
     updatedAt: "2026-06-01",
     intro:
-      "Northbridge Talent ('we', 'us') is a recruitment and staffing company. Handling personal data responsibly is fundamental to what we do. This policy explains what we collect, why, and the rights you have over your information.",
+      "Recruitment ('we', 'us') is a recruitment and staffing company. Handling personal data responsibly is fundamental to what we do. This policy explains what we collect, why, and the rights you have over your information.",
     sections: [
       {
         heading: "Information we collect",
@@ -65,25 +65,25 @@ export const legalPages: LegalPageContent[] = [
       {
         heading: "Contact",
         paragraphs: [
-          "For any privacy request or question, write to hello@northbridgetalent.in with the subject 'Privacy Request'. We respond to all privacy requests within 7 working days.",
+          "For any privacy request or question, write to hello@recruitment.in with the subject 'Privacy Request'. We respond to all privacy requests within 7 working days.",
         ],
       },
     ],
     metaTitle: "Privacy Policy",
     metaDescription:
-      "How Northbridge Talent collects, uses, protects and deletes personal data — including our consent-first profile sharing policy.",
+      "How Recruitment collects, uses, protects and deletes personal data — including our consent-first profile sharing policy.",
   },
   {
     slug: "terms",
     title: "Terms of Service",
     updatedAt: "2026-06-01",
     intro:
-      "These terms govern your use of the Northbridge Talent website and services. By using this website, submitting an application or engaging our services, you agree to them.",
+      "These terms govern your use of the Recruitment website and services. By using this website, submitting an application or engaging our services, you agree to them.",
     sections: [
       {
         heading: "Our services",
         paragraphs: [
-          "Northbridge Talent provides recruitment, staffing, executive search, recruitment process outsourcing, payroll administration and related advisory services. Service specifics for employers are set out in individual engagement agreements, which prevail over these general terms where they differ.",
+          "Recruitment provides recruitment, staffing, executive search, recruitment process outsourcing, payroll administration and related advisory services. Service specifics for employers are set out in individual engagement agreements, which prevail over these general terms where they differ.",
         ],
       },
       {
@@ -111,7 +111,7 @@ export const legalPages: LegalPageContent[] = [
       {
         heading: "Intellectual property",
         paragraphs: [
-          "All website content — text, design, graphics and branding — belongs to Northbridge Talent and may not be reproduced without written permission, except for personal, non-commercial reference.",
+          "All website content — text, design, graphics and branding — belongs to Recruitment and may not be reproduced without written permission, except for personal, non-commercial reference.",
         ],
       },
       {
@@ -129,14 +129,14 @@ export const legalPages: LegalPageContent[] = [
     ],
     metaTitle: "Terms of Service",
     metaDescription:
-      "The terms governing use of the Northbridge Talent website and recruitment services, for candidates and employers.",
+      "The terms governing use of the Recruitment website and recruitment services, for candidates and employers.",
   },
   {
     slug: "cookie-policy",
     title: "Cookie Policy",
     updatedAt: "2026-06-01",
     intro:
-      "This policy explains how the Northbridge Talent website uses cookies and similar technologies, and the choices you have.",
+      "This policy explains how the Recruitment website uses cookies and similar technologies, and the choices you have.",
     sections: [
       {
         heading: "What cookies are",
@@ -167,6 +167,6 @@ export const legalPages: LegalPageContent[] = [
     ],
     metaTitle: "Cookie Policy",
     metaDescription:
-      "How the Northbridge Talent website uses essential and analytics cookies, and how to manage your consent.",
+      "How the Recruitment website uses essential and analytics cookies, and how to manage your consent.",
   },
 ];

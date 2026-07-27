@@ -7,12 +7,12 @@ import type { FooterGroupContent, NavItemContent, SiteSettingsContent } from "@/
  */
 
 export const siteSettings: SiteSettingsContent = {
-  brandName: "Northbridge Talent",
+  brandName: "Recruitment",
   tagline: "The right people, verified and ready.",
   description:
-    "Northbridge Talent is a specialist recruitment partner connecting employers with rigorously vetted professionals across technology, finance, healthcare, manufacturing and more — with a process built on transparency and speed.",
+    "Recruitment is a specialist recruitment partner connecting employers with rigorously vetted professionals across technology, finance, healthcare, manufacturing and more — with a process built on transparency and speed.",
   phone: "+91 22 4890 2210",
-  email: "hello@northbridgetalent.in",
+  email: "hello@recruitment.in",
   address: "Level 8, One Horizon Center, Bandra Kurla Complex, Mumbai 400051",
   socialLinks: [
     { icon: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
@@ -20,8 +20,8 @@ export const siteSettings: SiteSettingsContent = {
     { icon: "instagram", label: "Instagram", href: "https://www.instagram.com" },
     { icon: "facebook", label: "Facebook", href: "https://www.facebook.com" },
   ],
-  ctaEmployers: { label: "Hire Talent", href: "/for-employers" },
-  ctaCandidates: { label: "Find a Job", href: "/jobs" },
+  ctaEmployers: { label: "Contact Us", href: "/contact" },
+  ctaCandidates: { label: "Browse Jobs", href: "/jobs" },
   copyright: "© {year} {brand}. All rights reserved.",
   ui: {
     skipToContent: "Skip to main content",
@@ -35,8 +35,8 @@ export const siteSettings: SiteSettingsContent = {
     backToTop: "Back to top",
   },
   seo: {
-    titleTemplate: "%s | Northbridge Talent",
-    defaultTitle: "Northbridge Talent — Recruitment & Staffing Agency",
+    titleTemplate: "%s | Recruitment",
+    defaultTitle: "Recruitment — Hiring & Staffing Made Simple",
     defaultDescription:
       "Specialist recruitment agency placing verified professionals in technology, finance, healthcare, manufacturing and operations roles across India. Trusted by 300+ employers.",
   },
@@ -44,13 +44,12 @@ export const siteSettings: SiteSettingsContent = {
 
 export const headerNav: NavItemContent[] = [
   { label: "Services", href: "/services", order: 1, location: "header" },
-  { label: "Industries", href: "/industries", order: 2, location: "header" },
-  { label: "Jobs", href: "/jobs", order: 3, location: "header" },
-  { label: "Employers", href: "/for-employers", order: 4, location: "header" },
-  { label: "Candidates", href: "/for-candidates", order: 5, location: "header" },
-  { label: "About", href: "/about", order: 6, location: "header" },
-  { label: "Blog", href: "/blog", order: 7, location: "header" },
-  { label: "Contact", href: "/contact", order: 8, location: "header" },
+  { label: "Jobs", href: "/jobs", order: 2, location: "header" },
+  { label: "Candidates", href: "/for-candidates", order: 3, location: "header" },
+  { label: "About", href: "/about", order: 4, location: "header" },
+  { label: "Blog", href: "/blog", order: 5, location: "header" },
+  { label: "FAQ", href: "/faq", order: 6, location: "header" },
+  { label: "Contact", href: "/contact", order: 7, location: "header" },
 ];
 
 export const footerGroups: FooterGroupContent[] = [
@@ -65,12 +64,27 @@ export const footerGroups: FooterGroupContent[] = [
     ],
   },
   {
-    heading: "For Employers",
+    heading: "Services",
     items: [
-      { label: "Hiring solutions", href: "/for-employers", order: 1, location: "footer" },
-      { label: "Our services", href: "/services", order: 2, location: "footer" },
-      { label: "Industries we serve", href: "/industries", order: 3, location: "footer" },
-      { label: "Success stories", href: "/case-studies", order: 4, location: "footer" },
+      { label: "All services", href: "/services", order: 1, location: "footer" },
+      {
+        label: "Permanent recruitment",
+        href: "/services/permanent-recruitment",
+        order: 2,
+        location: "footer",
+      },
+      {
+        label: "Contract staffing",
+        href: "/services/contract-staffing",
+        order: 3,
+        location: "footer",
+      },
+      {
+        label: "Executive search",
+        href: "/services/executive-search",
+        order: 4,
+        location: "footer",
+      },
     ],
   },
   {

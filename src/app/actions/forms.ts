@@ -1,12 +1,6 @@
 "use server";
 
-import {
-  applicationSchema,
-  contactSchema,
-  leadSchema,
-  RESUME_MAX_BYTES,
-  RESUME_TYPES,
-} from "@/lib/validation";
+import { applicationSchema, contactSchema, RESUME_MAX_BYTES, RESUME_TYPES } from "@/lib/validation";
 
 /**
  * Form Server Actions.
@@ -62,16 +56,6 @@ export async function submitApplication(formData: FormData): Promise<ActionResul
   console.info(
     `[application] ${parsed.data.fullName} <${parsed.data.email}> → ${parsed.data.jobSlug || "talent-network"} (resume: ${resume.name}, ${resume.size} bytes)`
   );
-  return { ok: true };
-}
-
-export async function submitLead(formData: FormData): Promise<ActionResult> {
-  if (isSpam(formData)) return { ok: true };
-
-  const parsed = leadSchema.safeParse(fields(formData));
-  if (!parsed.success) return { ok: false };
-
-  console.info(`[lead] ${parsed.data.company} — ${parsed.data.fullName} <${parsed.data.email}>`);
   return { ok: true };
 }
 

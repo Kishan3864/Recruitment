@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -29,17 +28,16 @@ export default async function RootLayout({
   const settings = await getSiteSettings();
 
   return (
-    <html lang="en">
-      <body className={`${fontText.variable} ${fontDisplay.variable} antialiased`}>
+    <html lang="en" className={`${fontText.variable} ${fontDisplay.variable}`}>
+      <body className="antialiased">
         <SkipLink label={settings.ui.skipToContent} />
-        <div className="flex min-h-dvh flex-col pb-[4.25rem] sm:pb-0">
+        <div className="flex min-h-dvh flex-col">
           <SiteHeader />
           <main id="main-content" className="flex-1">
             {children}
           </main>
           <SiteFooter />
         </div>
-        <MobileCtaBar />
       </body>
     </html>
   );

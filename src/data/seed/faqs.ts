@@ -6,7 +6,7 @@ export const faqs: FaqContent[] = [
     category: "For Candidates",
     question: "Do I have to pay anything to apply or get placed?",
     answer:
-      "No — never. Our fees are paid entirely by employers. If anyone claiming to represent Northbridge Talent asks you for money at any stage, it is a scam; please report it to us immediately at hello@northbridgetalent.in.",
+      "No — never. Our fees are paid entirely by employers. If anyone claiming to represent Recruitment asks you for money at any stage, it is a scam; please report it to us immediately at hello@recruitment.in.",
   },
   {
     category: "For Candidates",
@@ -68,7 +68,7 @@ export const faqs: FaqContent[] = [
     category: "General",
     question: "How is my personal data protected?",
     answer:
-      "Your data is stored on encrypted infrastructure hosted in India, accessed only by consultants working on your placement or hiring mandate, and never sold or shared with third parties for marketing. Resumes are shared with employers only after your explicit per-role consent, and you can request deletion of your data at any time by writing to hello@northbridgetalent.in. Full details are in our Privacy Policy.",
+      "Your data is stored on encrypted infrastructure hosted in India, accessed only by consultants working on your placement or hiring mandate, and never sold or shared with third parties for marketing. Resumes are shared with employers only after your explicit per-role consent, and you can request deletion of your data at any time by writing to hello@recruitment.in. Full details are in our Privacy Policy.",
   },
   {
     category: "General",

@@ -36,21 +36,6 @@ export const applicationSchema = z.object({
   jobSlug: z.string().trim().max(200).optional().or(z.literal("")),
 });
 
-export const leadSchema = z.object({
-  company: z.string().trim().min(2).max(160),
-  fullName: z.string().trim().min(2).max(120),
-  email: z.email().max(200),
-  phone: z
-    .string()
-    .trim()
-    .min(8)
-    .max(20)
-    .regex(/^[+\d][\d\s-]+$/),
-  hiringFor: z.string().trim().min(2).max(400),
-  headcount: z.string().trim().min(1).max(20),
-  message: z.string().trim().max(2000).optional().or(z.literal("")),
-});
-
 export const contactSchema = z.object({
   fullName: z.string().trim().min(2).max(120),
   email: z.email().max(200),
@@ -59,5 +44,4 @@ export const contactSchema = z.object({
 });
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
-export type LeadInput = z.infer<typeof leadSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;

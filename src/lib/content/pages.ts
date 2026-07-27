@@ -6,9 +6,7 @@ import {
   candidatesPage,
   caseStudiesPage,
   contactPage,
-  employersPage,
   faqPage,
-  industriesPage,
   jobsPage,
   notFoundContent,
   servicesPage,
@@ -20,10 +18,8 @@ import type {
   CandidatesPageContent,
   CaseStudiesPageContent,
   ContactPageContent,
-  EmployersPageContent,
   FaqPageContent,
   HomePageContent,
-  IndustriesPageContent,
   JobsPageContent,
   NotFoundContent,
   ServicesPageContent,
@@ -35,10 +31,6 @@ export async function getHomePage(): Promise<HomePageContent> {
 
 export async function getAboutPage(): Promise<AboutPageContent> {
   return aboutPage;
-}
-
-export async function getEmployersPage(): Promise<EmployersPageContent> {
-  return employersPage;
 }
 
 export async function getCandidatesPage(): Promise<CandidatesPageContent> {
@@ -59,10 +51,6 @@ export async function getFaqPage(): Promise<FaqPageContent> {
 
 export async function getServicesPage(): Promise<ServicesPageContent> {
   return servicesPage;
-}
-
-export async function getIndustriesPage(): Promise<IndustriesPageContent> {
-  return industriesPage;
 }
 
 export async function getCaseStudiesPage(): Promise<CaseStudiesPageContent> {

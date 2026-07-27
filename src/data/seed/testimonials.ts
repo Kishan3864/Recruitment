@@ -3,7 +3,7 @@ import type { TestimonialContent } from "@/types/content";
 export const testimonials: TestimonialContent[] = [
   {
     quote:
-      "We had struggled for five months to close two senior engineering roles. Northbridge sent us a shortlist in four days — both roles closed within three weeks, and both engineers are still with us two years later.",
+      "We had struggled for five months to close two senior engineering roles. Recruitment sent us a shortlist in four days — both roles closed within three weeks, and both engineers are still with us two years later.",
     author: "Ananya Krishnan",
     role: "VP of Engineering",
     company: "Zenlayer Systems",
@@ -39,7 +39,7 @@ export const testimonials: TestimonialContent[] = [
   },
   {
     quote:
-      "After a layoff I was anxious and honestly a bit lost. Northbridge treated me like a person, not a resume. Three interviews in two weeks, and an offer that matched exactly what we'd discussed.",
+      "After a layoff I was anxious and honestly a bit lost. Recruitment treated me like a person, not a resume. Three interviews in two weeks, and an offer that matched exactly what we'd discussed.",
     author: "Deepak Nair",
     role: "DevOps Engineer",
     company: "placed at a devtools company",

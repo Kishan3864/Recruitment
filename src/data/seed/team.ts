@@ -4,7 +4,7 @@ export const team: TeamMemberContent[] = [
   {
     name: "Meera Raghavan",
     role: "Founder & Chief Executive Officer",
-    bio: "Meera spent twelve years leading talent acquisition for two unicorns before founding Northbridge with a simple conviction: recruitment should be measured by how long a hire succeeds, not how fast a fee is booked.",
+    bio: "Meera spent twelve years leading talent acquisition for two unicorns before founding Recruitment with a simple conviction: recruitment should be measured by how long a hire succeeds, not how fast a fee is booked.",
     specialties: ["Executive Search", "Talent Strategy", "Technology Hiring"],
   },
   {
@@ -22,7 +22,7 @@ export const team: TeamMemberContent[] = [
   {
     name: "Sandeep Chauhan",
     role: "Head of Delivery & Compliance",
-    bio: "Sandeep ran multi-state payroll operations for 30,000 contingent workers before joining Northbridge. He owns our zero-penalty compliance record and intends to keep it that way.",
+    bio: "Sandeep ran multi-state payroll operations for 30,000 contingent workers before joining Recruitment. He owns our zero-penalty compliance record and intends to keep it that way.",
     specialties: ["Payroll Operations", "Labour Compliance", "Contract Staffing"],
   },
 ];

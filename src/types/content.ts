@@ -110,19 +110,6 @@ export interface ServiceContent {
   metaDescription: string;
 }
 
-export interface IndustryContent {
-  slug: string;
-  name: string;
-  icon: string;
-  shortDesc: string;
-  longDesc: string[];
-  roles: string[];
-  placementCount: number;
-  order: number;
-  metaTitle: string;
-  metaDescription: string;
-}
-
 export type WorkMode = "On-site" | "Hybrid" | "Remote";
 export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Internship";
 

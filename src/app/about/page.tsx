@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Compass, Target } from "lucide-react";
+
+import teamPhoto from "../../../public/images/team.jpg";
+import meetingPhoto from "../../../public/images/meeting.jpg";
 
 import { FeatureGrid } from "@/components/sections/feature-grid";
 import { PageHero } from "@/components/sections/page-hero";
@@ -43,6 +47,16 @@ export default async function AboutPage() {
             </Reveal>
           </div>
           <div className="space-y-6 lg:pt-10">
+            <Reveal delay={0.05}>
+              <div className="relative overflow-hidden rounded-3xl border-4 border-white shadow-lg">
+                <Image
+                  src={teamPhoto}
+                  alt=""
+                  sizes="(min-width: 1024px) 36rem, 100vw"
+                  className="aspect-[3/2] w-full object-cover"
+                />
+              </div>
+            </Reveal>
             <Reveal delay={0.1}>
               <div className="section-navy rounded-3xl p-8">
                 <span className="mb-4 flex size-11 items-center justify-center rounded-xl bg-white/10 text-cta-300">
@@ -101,6 +115,16 @@ export default async function AboutPage() {
             heading={page.team.heading}
             description={page.team.description}
           />
+          <Reveal className="mb-12">
+            <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border-4 border-white shadow-lg">
+              <Image
+                src={meetingPhoto}
+                alt=""
+                sizes="(min-width: 1024px) 56rem, 100vw"
+                className="aspect-[21/9] w-full object-cover"
+              />
+            </div>
+          </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member, i) => (
               <Reveal key={member.name} delay={(i % 4) * 0.08}>

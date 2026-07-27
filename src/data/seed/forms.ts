@@ -1,4 +1,4 @@
-import type { ApplyFormCopy, ContactFormCopy, LeadFormCopy } from "@/types/pages";
+import type { ApplyFormCopy, ContactFormCopy } from "@/types/pages";
 
 export const applyFormCopy: ApplyFormCopy = {
   title: "Apply for this role",
@@ -32,7 +32,7 @@ export const applyFormCopy: ApplyFormCopy = {
     "Serving notice",
   ],
   consent:
-    "By submitting, you consent to Northbridge Talent storing your details to contact you about relevant opportunities. Your profile is never shared with an employer without your explicit approval. See our Privacy Policy.",
+    "By submitting, you consent to Recruitment storing your details to contact you about relevant opportunities. Your profile is never shared with an employer without your explicit approval. See our Privacy Policy.",
   messages: {
     submit: "Submit application",
     submitting: "Submitting…",
@@ -57,41 +57,6 @@ export const registerFormCopy: ApplyFormCopy = {
     successTitle: "You're in our network!",
     successBody:
       "Thank you — a consultant from the relevant sector desk will review your profile within 2 working days and reach out as soon as a matching role opens.",
-  },
-};
-
-export const leadFormCopy: LeadFormCopy = {
-  title: "Tell us who you're hiring",
-  subtitle:
-    "Share your requirement and a sector-specialist consultant will call you back within 4 business hours.",
-  fields: {
-    company: { label: "Company name", placeholder: "e.g. Acme Technologies" },
-    fullName: { label: "Your name", placeholder: "e.g. Neha Gupta" },
-    email: { label: "Work email", placeholder: "you@company.com" },
-    phone: { label: "Phone number", placeholder: "+91 98XXXXXXXX" },
-    hiringFor: {
-      label: "Roles you're hiring for",
-      placeholder: "e.g. 2 backend engineers, 1 finance manager",
-    },
-    headcount: { label: "Number of positions" },
-    message: {
-      label: "Anything else we should know? (optional)",
-      placeholder: "Timelines, locations, must-haves…",
-    },
-  },
-  headcountOptions: ["1–2", "3–5", "6–15", "16–50", "50+"],
-  consent:
-    "By submitting, you agree to be contacted by Northbridge Talent about your hiring requirement. We never share your details with third parties.",
-  messages: {
-    submit: "Request a callback",
-    submitting: "Sending…",
-    successTitle: "Request received!",
-    successBody:
-      "Thank you — a sector-specialist consultant will call you within 4 business hours (Mon–Sat, 9:00–19:00 IST).",
-    errorTitle: "Something went wrong",
-    errorBody: "We couldn't send your request. Please try again or call us directly.",
-    fieldInvalid: "Please check this field.",
-    resumeInvalid: "Please attach a PDF, DOC or DOCX file up to 5 MB.",
   },
 };
 

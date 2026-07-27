@@ -1,17 +1,19 @@
-import { Inter, Sora } from "next/font/google";
+import { Poppins } from "next/font/google";
 
 /**
- * Self-hosted via next/font (downloaded at build time, served from /_next/static).
- * `display: swap` + automatic size-adjusted fallbacks prevent font-driven layout shift.
+ * Poppins across the whole site (client request): regular weights for text,
+ * semibold/bold for display. Self-hosted via next/font, `display: swap` +
+ * size-adjusted fallback prevents font-driven layout shift.
  */
-export const fontText = Inter({
-  variable: "--font-inter",
+export const fontText = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-export const fontDisplay = Sora({
-  variable: "--font-sora",
+export const fontDisplay = Poppins({
+  variable: "--font-poppins-display",
   subsets: ["latin"],
   weight: ["600", "700"],
   display: "swap",

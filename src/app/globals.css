@@ -64,8 +64,9 @@
   --color-warning-foreground: #fffbeb;
 
   /* ── Typography ───────────────────────────────────────────────────────── */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-poppins-display), var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   /* Fluid display sizes for hero/section headings (h1 ≈ 36→64px) */
   --text-display: clamp(2.375rem, 1.5rem + 3.6vw, 4rem);
