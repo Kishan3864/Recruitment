@@ -1,0 +1,248 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   Single source of truth for the visual language.
+
+   Layers:
+   1. @theme        — raw palettes (brand, cta, neutral), type, radius, shadows
+   2. :root / .dark — semantic tokens per theme (shadcn-compatible names +
+                      surface aliases). Components consume ONLY semantic
+                      utilities (bg-background, text-muted-foreground, …) or
+                      brand/cta scale utilities — never raw hex.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Brand: "trust navy" — deep indigo-blue, 11 steps ─────────────────── */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dce7fd;
+  --color-brand-200: #bfd3fb;
+  --color-brand-300: #93b4f7;
+  --color-brand-400: #608cf0;
+  --color-brand-500: #3b66e8;
+  --color-brand-600: #2749d6;
+  --color-brand-700: #2038b0;
+  --color-brand-800: #1e308c;
+  --color-brand-900: #1d2b6f;
+  --color-brand-950: #151d48;
+
+  /* ── CTA accent: warm amber — used sparingly, CTAs only ───────────────── */
+  --color-cta-50: #fef7e8;
+  --color-cta-100: #fdecc4;
+  --color-cta-200: #fbd88a;
+  --color-cta-300: #f8c04f;
+  --color-cta-400: #f5a524;
+  --color-cta-500: #e8930c;
+  --color-cta-600: #c67605;
+  --color-cta-700: #9e5a08;
+
+  /* ── Neutrals: cool slate-tinted (not flat gray) ──────────────────────── */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #101a2e;
+  --color-neutral-950: #0b1120;
+
+  /* ── Status colors ────────────────────────────────────────────────────── */
+  --color-success: #157f4c;
+  --color-success-foreground: #ecfdf3;
+  --color-warning: #b45309;
+  --color-warning-foreground: #fffbeb;
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid display sizes for hero/section headings (h1 ≈ 36→60px) */
+  --text-display: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.025em;
+  --text-display--font-weight: 700;
+  --text-display-sm: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --text-display-sm--line-height: 1.12;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-sm--font-weight: 700;
+  --text-display-xs: clamp(1.5rem, 1.25rem + 1.1vw, 2.25rem);
+  --text-display-xs--line-height: 1.16;
+  --text-display-xs--letter-spacing: -0.015em;
+  --text-display-xs--font-weight: 600;
+
+  /* ── Radius scale: sm 6 / md 10 / lg 14 / xl 20 ───────────────────────── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.875rem;
+  --radius-4xl: 2.25rem;
+
+  /* ── Shadows: navy-tinted, low opacity (never default gray) ───────────── */
+  --shadow-2xs: 0 1px 2px 0 rgb(21 29 72 / 0.04);
+  --shadow-xs: 0 1px 2px 0 rgb(21 29 72 / 0.06);
+  --shadow-sm: 0 1px 3px 0 rgb(21 29 72 / 0.08), 0 1px 2px -1px rgb(21 29 72 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(21 29 72 / 0.07), 0 2px 4px -2px rgb(21 29 72 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(21 29 72 / 0.08), 0 4px 6px -4px rgb(21 29 72 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(21 29 72 / 0.1), 0 8px 10px -6px rgb(21 29 72 / 0.05);
+}
+
+/* Semantic tokens — mapped per theme below */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* CTA semantic pair (bg-cta / text-cta-foreground) */
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
+  /* Surface aliases: sunken bands (stats strips, alt sections) */
+  --color-surface-sunken: var(--surface-sunken);
+  /* Admin sidebar (Phase 8) + charts inherit brand hues */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --font-heading: var(--font-display);
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────── */
+:root {
+  --background: #ffffff;
+  --foreground: var(--color-neutral-950);
+  --card: #ffffff;
+  --card-foreground: var(--color-neutral-950);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-neutral-950);
+  --primary: var(--color-brand-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-600);
+  --accent: var(--color-brand-50);
+  --accent-foreground: var(--color-brand-800);
+  --destructive: #dc2626;
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-brand-500);
+  --cta: var(--color-cta-500);
+  --cta-foreground: var(--color-neutral-950);
+  --surface-sunken: var(--color-neutral-50);
+  --radius: 0.875rem;
+  --sidebar: var(--color-neutral-50);
+  --sidebar-foreground: var(--color-neutral-950);
+  --sidebar-primary: var(--color-brand-600);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-brand-50);
+  --sidebar-accent-foreground: var(--color-brand-800);
+  --sidebar-border: var(--color-neutral-200);
+  --sidebar-ring: var(--color-brand-500);
+  --chart-1: var(--color-brand-600);
+  --chart-2: var(--color-brand-400);
+  --chart-3: var(--color-cta-500);
+  --chart-4: var(--color-neutral-500);
+  --chart-5: var(--color-brand-800);
+}
+
+/* ── Dark theme: designed navy, not inverted gray ────────────────────────── */
+.dark {
+  --background: var(--color-neutral-950);
+  --foreground: #e6eaf2;
+  --card: #111a30;
+  --card-foreground: #e6eaf2;
+  --popover: #111a30;
+  --popover-foreground: #e6eaf2;
+  --primary: var(--color-brand-400);
+  --primary-foreground: var(--color-neutral-950);
+  --secondary: #16213c;
+  --secondary-foreground: #e6eaf2;
+  --muted: #16213c;
+  --muted-foreground: #9aa7bd;
+  --accent: rgb(96 140 240 / 0.12);
+  --accent-foreground: var(--color-brand-200);
+  --destructive: #f87171;
+  --border: rgb(230 234 242 / 0.1);
+  --input: rgb(230 234 242 / 0.14);
+  --ring: var(--color-brand-400);
+  --cta: var(--color-cta-400);
+  --cta-foreground: var(--color-neutral-950);
+  --surface-sunken: #0d1428;
+  --sidebar: #111a30;
+  --sidebar-foreground: #e6eaf2;
+  --sidebar-primary: var(--color-brand-400);
+  --sidebar-primary-foreground: var(--color-neutral-950);
+  --sidebar-accent: rgb(96 140 240 / 0.12);
+  --sidebar-accent-foreground: var(--color-brand-200);
+  --sidebar-border: rgb(230 234 242 / 0.1);
+  --sidebar-ring: var(--color-brand-400);
+  --chart-1: var(--color-brand-400);
+  --chart-2: var(--color-brand-200);
+  --chart-3: var(--color-cta-400);
+  --chart-4: var(--color-neutral-400);
+  --chart-5: var(--color-brand-600);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight;
+  }
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-brand-950);
+  }
+  .dark ::selection {
+    background: var(--color-brand-700);
+    color: #e6eaf2;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
