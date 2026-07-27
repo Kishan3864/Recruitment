@@ -2,18 +2,22 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/*
+ * Single-theme site: the `.dark` class is never applied anywhere, and this
+ * override pins Tailwind's `dark:` variant to that class (instead of the
+ * default media query) so OS-level dark mode can never restyle the UI.
+ */
 @custom-variant dark (&:is(.dark *));
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DESIGN TOKENS
-   Single source of truth for the visual language.
+   DESIGN TOKENS — single light theme (dark mode intentionally removed).
 
    Layers:
-   1. @theme        — raw palettes (brand, cta, neutral), type, radius, shadows
-   2. :root / .dark — semantic tokens per theme (shadcn-compatible names +
-                      surface aliases). Components consume ONLY semantic
-                      utilities (bg-background, text-muted-foreground, …) or
-                      brand/cta scale utilities — never raw hex.
+   1. @theme — raw palettes (brand, cta, neutral), type, radius, shadows
+   2. :root  — semantic tokens (shadcn-compatible names + surface aliases).
+      Components consume ONLY semantic utilities or scale utilities.
+   Deep-navy "contrast" sections (hero, CTA band, footer) are styled locally
+   with brand-950 tokens — they are part of the light theme, not a dark mode.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
@@ -30,7 +34,7 @@
   --color-brand-900: #1d2b6f;
   --color-brand-950: #151d48;
 
-  /* ── CTA accent: warm amber — used sparingly, CTAs only ───────────────── */
+  /* ── CTA accent: warm amber — used sparingly, CTAs + highlights only ──── */
   --color-cta-50: #fef7e8;
   --color-cta-100: #fdecc4;
   --color-cta-200: #fbd88a;
@@ -63,10 +67,10 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  /* Fluid display sizes for hero/section headings (h1 ≈ 36→60px) */
-  --text-display: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
-  --text-display--line-height: 1.08;
-  --text-display--letter-spacing: -0.025em;
+  /* Fluid display sizes for hero/section headings (h1 ≈ 36→64px) */
+  --text-display: clamp(2.375rem, 1.5rem + 3.6vw, 4rem);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.028em;
   --text-display--font-weight: 700;
   --text-display-sm: clamp(1.875rem, 1.4rem + 2vw, 3rem);
   --text-display-sm--line-height: 1.12;
@@ -93,9 +97,32 @@
   --shadow-md: 0 4px 6px -1px rgb(21 29 72 / 0.07), 0 2px 4px -2px rgb(21 29 72 / 0.06);
   --shadow-lg: 0 10px 15px -3px rgb(21 29 72 / 0.08), 0 4px 6px -4px rgb(21 29 72 / 0.05);
   --shadow-xl: 0 20px 25px -5px rgb(21 29 72 / 0.1), 0 8px 10px -6px rgb(21 29 72 / 0.05);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-delayed: float 8s ease-in-out 1.2s infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
 }
 
-/* Semantic tokens — mapped per theme below */
+/* Semantic tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -118,9 +145,9 @@
   /* CTA semantic pair (bg-cta / text-cta-foreground) */
   --color-cta: var(--cta);
   --color-cta-foreground: var(--cta-foreground);
-  /* Surface aliases: sunken bands (stats strips, alt sections) */
+  /* Surface aliases: sunken bands (alt sections) */
   --color-surface-sunken: var(--surface-sunken);
-  /* Admin sidebar (Phase 8) + charts inherit brand hues */
+  /* Admin sidebar (later phase) + charts inherit brand hues */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -137,7 +164,6 @@
   --font-heading: var(--font-display);
 }
 
-/* ── Light theme ─────────────────────────────────────────────────────────── */
 :root {
   --background: #ffffff;
   --foreground: var(--color-neutral-950);
@@ -176,44 +202,6 @@
   --chart-5: var(--color-brand-800);
 }
 
-/* ── Dark theme: designed navy, not inverted gray ────────────────────────── */
-.dark {
-  --background: var(--color-neutral-950);
-  --foreground: #e6eaf2;
-  --card: #111a30;
-  --card-foreground: #e6eaf2;
-  --popover: #111a30;
-  --popover-foreground: #e6eaf2;
-  --primary: var(--color-brand-400);
-  --primary-foreground: var(--color-neutral-950);
-  --secondary: #16213c;
-  --secondary-foreground: #e6eaf2;
-  --muted: #16213c;
-  --muted-foreground: #9aa7bd;
-  --accent: rgb(96 140 240 / 0.12);
-  --accent-foreground: var(--color-brand-200);
-  --destructive: #f87171;
-  --border: rgb(230 234 242 / 0.1);
-  --input: rgb(230 234 242 / 0.14);
-  --ring: var(--color-brand-400);
-  --cta: var(--color-cta-400);
-  --cta-foreground: var(--color-neutral-950);
-  --surface-sunken: #0d1428;
-  --sidebar: #111a30;
-  --sidebar-foreground: #e6eaf2;
-  --sidebar-primary: var(--color-brand-400);
-  --sidebar-primary-foreground: var(--color-neutral-950);
-  --sidebar-accent: rgb(96 140 240 / 0.12);
-  --sidebar-accent-foreground: var(--color-brand-200);
-  --sidebar-border: rgb(230 234 242 / 0.1);
-  --sidebar-ring: var(--color-brand-400);
-  --chart-1: var(--color-brand-400);
-  --chart-2: var(--color-brand-200);
-  --chart-3: var(--color-cta-400);
-  --chart-4: var(--color-neutral-400);
-  --chart-5: var(--color-brand-600);
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -236,13 +224,58 @@
     background: var(--color-brand-200);
     color: var(--color-brand-950);
   }
-  .dark ::selection {
-    background: var(--color-brand-700);
-    color: #e6eaf2;
-  }
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-float,
+    .animate-float-delayed {
+      animation: none;
+    }
+  }
+}
+
+@layer utilities {
+  /* Deep-navy contrast section (hero / CTA band / footer) */
+  .section-navy {
+    background:
+      radial-gradient(52rem 30rem at 85% -10%, rgb(39 73 214 / 0.35), transparent 60%),
+      radial-gradient(40rem 26rem at 0% 110%, rgb(32 56 176 / 0.28), transparent 55%),
+      var(--color-brand-950);
+    color: #ffffff;
+  }
+  /* Soft brand-tinted page top wash */
+  .bg-hero-wash {
+    background:
+      radial-gradient(50rem 24rem at 50% -8rem, rgb(220 231 253 / 0.55), transparent 65%),
+      var(--background);
+  }
+  .text-gradient-brand {
+    background: linear-gradient(92deg, var(--color-brand-300), #ffffff 55%, var(--color-brand-200));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Card hover: lift + border glow */
+  .card-lift {
+    transition:
+      translate 250ms ease,
+      box-shadow 250ms ease,
+      border-color 250ms ease;
+  }
+  .card-lift:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-brand-300);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-lift,
+    .card-lift:hover {
+      translate: none;
+      transition: none;
     }
   }
 }

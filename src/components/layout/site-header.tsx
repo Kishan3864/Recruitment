@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavLink } from "@/components/layout/nav-link";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
@@ -19,14 +18,16 @@ export async function SiteHeader() {
           <BrandLogo name={settings.brandName} />
         </Link>
 
-        <nav aria-label={settings.ui.mainNavLabel} className="hidden items-center gap-5 lg:flex">
+        <nav aria-label={settings.ui.mainNavLabel} className="hidden items-center gap-5 xl:flex">
           {nav.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle label={settings.ui.toggleTheme} />
+        <div className="flex items-center gap-2.5">
+          <Button asChild variant="outline" className="hidden md:inline-flex">
+            <Link href={settings.ctaCandidates.href}>{settings.ctaCandidates.label}</Link>
+          </Button>
           <Button
             asChild
             className="hidden bg-cta text-cta-foreground hover:bg-cta/90 sm:inline-flex"

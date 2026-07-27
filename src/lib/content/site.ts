@@ -1,17 +1,16 @@
-import { footerGroups, headerNav, homePlaceholder, legalNav, siteSettings } from "@/data/seed/site";
+import { clientLogos } from "@/data/seed/logos";
+import { footerGroups, headerNav, legalNav, siteSettings } from "@/data/seed/site";
 import type {
+  ClientLogoContent,
   FooterGroupContent,
-  HomePlaceholderContent,
   NavItemContent,
   SiteSettingsContent,
 } from "@/types/content";
 
 /**
- * Content access layer — the ONLY module components may read content through.
- *
- * Phase 1: backed by the typed seed data.
- * Phase 2: these functions switch to Prisma queries (with React `cache()`),
- * without any component changing. Keep every accessor async for that reason.
+ * Content access layer — the ONLY modules components may read content through.
+ * Backed by typed seed data today; swaps to Prisma later without any
+ * component changing (all accessors are async for that reason).
  */
 
 export async function getSiteSettings(): Promise<SiteSettingsContent> {
@@ -30,8 +29,8 @@ export async function getLegalNav(): Promise<NavItemContent[]> {
   return [...legalNav].sort((a, b) => a.order - b.order);
 }
 
-export async function getHomePlaceholder(): Promise<HomePlaceholderContent> {
-  return homePlaceholder;
+export async function getClientLogos(): Promise<ClientLogoContent[]> {
+  return clientLogos;
 }
 
 /** Interpolates the copyright template from SiteSetting. */

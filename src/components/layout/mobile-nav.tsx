@@ -25,7 +25,7 @@ export function MobileNav({ brandName, items, cta, openLabel, navLabel }: Mobile
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden" aria-label={openLabel}>
+        <Button variant="ghost" size="icon" className="xl:hidden" aria-label={openLabel}>
           <Menu className="size-5" aria-hidden="true" />
         </Button>
       </SheetTrigger>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
-import { ThemeProvider } from "@/components/layout/theme-provider";
 import { getSiteSettings } from "@/lib/content/site";
 import { fontDisplay, fontText } from "@/lib/fonts";
 
@@ -29,19 +29,17 @@ export default async function RootLayout({
   const settings = await getSiteSettings();
 
   return (
-    // suppressHydrationWarning: next-themes mutates <html class> before hydration
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${fontText.variable} ${fontDisplay.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SkipLink label={settings.ui.skipToContent} />
-          <div className="flex min-h-dvh flex-col">
-            <SiteHeader />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
-        </ThemeProvider>
+        <SkipLink label={settings.ui.skipToContent} />
+        <div className="flex min-h-dvh flex-col pb-[4.25rem] sm:pb-0">
+          <SiteHeader />
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+        </div>
+        <MobileCtaBar />
       </body>
     </html>
   );

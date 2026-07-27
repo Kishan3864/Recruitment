@@ -1,43 +1,84 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { AudienceSplit } from "@/components/sections/audience-split";
+import { BlogPreview } from "@/components/sections/blog-preview";
+import { CtaBanner } from "@/components/sections/cta-banner";
+import { FeatureGrid } from "@/components/sections/feature-grid";
+import { Hero } from "@/components/sections/hero";
+import { IndustriesGrid } from "@/components/sections/industries-grid";
+import { JobsPreview } from "@/components/sections/jobs-preview";
+import { LogoMarquee } from "@/components/sections/logo-marquee";
+import { ProcessSteps } from "@/components/sections/process-steps";
+import { ServicesGrid } from "@/components/sections/services-grid";
+import { StatsBand } from "@/components/sections/stats-band";
+import { Testimonials } from "@/components/sections/testimonials";
+import { TrustBadges } from "@/components/sections/trust-badges";
+import { getRecentPosts } from "@/lib/content/blog";
+import { getIndustries, getServices, getTestimonials } from "@/lib/content/collections";
+import { getFeaturedJobs } from "@/lib/content/jobs";
+import {
+  getBlogPage,
+  getHomePage,
+  getIndustriesPage,
+  getJobsPage,
+  getServicesPage,
+} from "@/lib/content/pages";
+import { getClientLogos } from "@/lib/content/site";
 
-import { GridPattern } from "@/components/graphics/grid-pattern";
-import { Container } from "@/components/shared/container";
-import { Button } from "@/components/ui/button";
-import { getHomePlaceholder } from "@/lib/content/site";
-
-/**
- * Home — placeholder hero previewing the design system.
- * Replaced in Phase 3 by <SectionRenderer /> composing DB-driven sections.
- * SSG by default (no dynamic APIs used); ISR arrives with the DB in Phase 2.
- */
+/** Home — statically rendered composition of content-driven sections. */
 export default async function HomePage() {
-  const content = await getHomePlaceholder();
+  const [home, services, industries, logos, featuredJobs, testimonials, posts] = await Promise.all([
+    getHomePage(),
+    getServices(),
+    getIndustries(),
+    getClientLogos(),
+    getFeaturedJobs(3),
+    getTestimonials(),
+    getRecentPosts(3),
+  ]);
+  const [servicesPage, industriesPage, jobsPage, blogPage] = await Promise.all([
+    getServicesPage(),
+    getIndustriesPage(),
+    getJobsPage(),
+    getBlogPage(),
+  ]);
 
   return (
-    <section className="relative overflow-hidden">
-      <GridPattern />
-      <Container className="relative flex flex-col items-center py-24 text-center lg:py-36">
-        <p className="mb-6 rounded-full border border-accent-foreground/15 bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
-          {content.badge}
-        </p>
-        <h1 className="max-w-3xl text-display text-balance">{content.heading}</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground">
-          {content.subheading}
-        </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg" className="bg-cta text-cta-foreground hover:bg-cta/90">
-            <Link href={content.primaryCta.href}>
-              {content.primaryCta.label}
-              <ArrowRight data-icon="inline-end" aria-hidden="true" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link href={content.secondaryCta.href}>{content.secondaryCta.label}</Link>
-          </Button>
-        </div>
-        <p className="mt-16 text-sm text-muted-foreground/70">{content.note}</p>
-      </Container>
-    </section>
+    <>
+      <Hero content={home.hero} />
+      <LogoMarquee heading={home.logoStrip.heading} logos={logos} />
+      <ServicesGrid
+        intro={home.services}
+        cta={home.services.cta}
+        services={services}
+        learnMore={servicesPage.learnMore}
+      />
+      <AudienceSplit content={home.audience} />
+      <StatsBand intro={home.stats} stats={home.stats.items} />
+      <ProcessSteps intro={home.process} steps={home.process.steps} />
+      <IndustriesGrid
+        intro={home.industries}
+        cta={home.industries.cta}
+        industries={industries}
+        placementsSuffix={industriesPage.placementsSuffix}
+      />
+      <FeatureGrid intro={home.whyUs} features={home.whyUs.features} />
+      <JobsPreview
+        intro={home.jobsPreview}
+        cta={home.jobsPreview.cta}
+        jobs={featuredJobs}
+        viewLabel={jobsPage.list.viewJob}
+        featuredLabel={jobsPage.list.featuredBadge}
+        postedPrefix={jobsPage.list.postedPrefix}
+      />
+      <Testimonials intro={home.testimonials} testimonials={testimonials} sunken />
+      <TrustBadges intro={home.trust} badges={home.trust.badges} />
+      <BlogPreview
+        intro={home.blogPreview}
+        cta={home.blogPreview.cta}
+        posts={posts}
+        readMore={home.blogPreview.readMore}
+        minuteReadSuffix={blogPage.minuteReadSuffix}
+      />
+      <CtaBanner content={home.ctaBanner} />
+    </>
   );
 }

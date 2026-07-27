@@ -1,30 +1,23 @@
-import type {
-  FooterGroupContent,
-  HomePlaceholderContent,
-  NavItemContent,
-  SiteSettingsContent,
-} from "@/types/content";
+import type { FooterGroupContent, NavItemContent, SiteSettingsContent } from "@/types/content";
 
 /**
- * Placeholder site content for Phase 1.
- *
- * From Phase 2 onward this file seeds the SiteSetting / NavItem tables and the
- * content layer reads from the database instead. All copy here is believable
- * placeholder text intended to be replaced in the admin panel — nothing is
- * referenced directly by components.
+ * Site-wide content. Consumed only through src/lib/content/site.ts.
+ * Later phases move this into the SiteSetting / NavItem tables — the shapes
+ * are already database-ready.
  */
 
 export const siteSettings: SiteSettingsContent = {
   brandName: "Northbridge Talent",
   tagline: "The right people, verified and ready.",
   description:
-    "Northbridge Talent is a specialist recruitment partner connecting employers with rigorously vetted professionals across technology, finance, healthcare and operations.",
-  phone: "+44 20 7946 0810",
-  email: "hello@northbridgetalent.example",
-  address: "14 Draymarket Lane, London EC2A 4PX, United Kingdom",
+    "Northbridge Talent is a specialist recruitment partner connecting employers with rigorously vetted professionals across technology, finance, healthcare, manufacturing and more — with a process built on transparency and speed.",
+  phone: "+91 22 4890 2210",
+  email: "hello@northbridgetalent.in",
+  address: "Level 8, One Horizon Center, Bandra Kurla Complex, Mumbai 400051",
   socialLinks: [
     { icon: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
     { icon: "twitter", label: "X (Twitter)", href: "https://x.com" },
+    { icon: "instagram", label: "Instagram", href: "https://www.instagram.com" },
     { icon: "facebook", label: "Facebook", href: "https://www.facebook.com" },
   ],
   ctaEmployers: { label: "Hire Talent", href: "/for-employers" },
@@ -34,17 +27,18 @@ export const siteSettings: SiteSettingsContent = {
     skipToContent: "Skip to main content",
     openMenu: "Open navigation menu",
     closeMenu: "Close navigation menu",
-    toggleTheme: "Toggle color theme",
     mainNavLabel: "Main navigation",
     footerNavLabel: "Footer navigation",
     legalNavLabel: "Legal",
     socialNavLabel: "Social media",
+    breadcrumbLabel: "Breadcrumb",
+    backToTop: "Back to top",
   },
   seo: {
     titleTemplate: "%s | Northbridge Talent",
-    defaultTitle: "Northbridge Talent — Specialist Recruitment & Staffing",
+    defaultTitle: "Northbridge Talent — Recruitment & Staffing Agency",
     defaultDescription:
-      "Specialist recruitment agency placing verified professionals in technology, finance, healthcare and operations roles. Trusted by employers, championed by candidates.",
+      "Specialist recruitment agency placing verified professionals in technology, finance, healthcare, manufacturing and operations roles across India. Trusted by 300+ employers.",
   },
 };
 
@@ -52,10 +46,11 @@ export const headerNav: NavItemContent[] = [
   { label: "Services", href: "/services", order: 1, location: "header" },
   { label: "Industries", href: "/industries", order: 2, location: "header" },
   { label: "Jobs", href: "/jobs", order: 3, location: "header" },
-  { label: "For Employers", href: "/for-employers", order: 4, location: "header" },
-  { label: "For Candidates", href: "/for-candidates", order: 5, location: "header" },
+  { label: "Employers", href: "/for-employers", order: 4, location: "header" },
+  { label: "Candidates", href: "/for-candidates", order: 5, location: "header" },
   { label: "About", href: "/about", order: 6, location: "header" },
-  { label: "Contact", href: "/contact", order: 7, location: "header" },
+  { label: "Blog", href: "/blog", order: 7, location: "header" },
+  { label: "Contact", href: "/contact", order: 8, location: "header" },
 ];
 
 export const footerGroups: FooterGroupContent[] = [
@@ -64,8 +59,9 @@ export const footerGroups: FooterGroupContent[] = [
     items: [
       { label: "About us", href: "/about", order: 1, location: "footer" },
       { label: "Case studies", href: "/case-studies", order: 2, location: "footer" },
-      { label: "Blog", href: "/blog", order: 3, location: "footer" },
-      { label: "Contact", href: "/contact", order: 4, location: "footer" },
+      { label: "Blog & insights", href: "/blog", order: 3, location: "footer" },
+      { label: "FAQ", href: "/faq", order: 4, location: "footer" },
+      { label: "Contact", href: "/contact", order: 5, location: "footer" },
     ],
   },
   {
@@ -74,6 +70,7 @@ export const footerGroups: FooterGroupContent[] = [
       { label: "Hiring solutions", href: "/for-employers", order: 1, location: "footer" },
       { label: "Our services", href: "/services", order: 2, location: "footer" },
       { label: "Industries we serve", href: "/industries", order: 3, location: "footer" },
+      { label: "Success stories", href: "/case-studies", order: 4, location: "footer" },
     ],
   },
   {
@@ -81,7 +78,13 @@ export const footerGroups: FooterGroupContent[] = [
     items: [
       { label: "Browse jobs", href: "/jobs", order: 1, location: "footer" },
       { label: "How we place you", href: "/for-candidates", order: 2, location: "footer" },
-      { label: "FAQ", href: "/faq", order: 3, location: "footer" },
+      { label: "Career advice", href: "/blog", order: 3, location: "footer" },
+      {
+        label: "Submit your resume",
+        href: "/for-candidates#register",
+        order: 4,
+        location: "footer",
+      },
     ],
   },
 ];
@@ -91,13 +94,3 @@ export const legalNav: NavItemContent[] = [
   { label: "Terms of Service", href: "/terms", order: 2, location: "legal" },
   { label: "Cookie Policy", href: "/cookie-policy", order: 3, location: "legal" },
 ];
-
-export const homePlaceholder: HomePlaceholderContent = {
-  badge: "Specialist recruitment, done properly",
-  heading: "Hiring that moves careers and companies forward",
-  subheading:
-    "We connect employers with rigorously vetted professionals — and candidates with roles that actually fit. Transparent process, verified references, no noise.",
-  primaryCta: { label: "Hire Talent", href: "/for-employers" },
-  secondaryCta: { label: "Browse Open Roles", href: "/jobs" },
-  note: "Full site sections arrive in Phase 3 — this page previews the design system.",
-};
