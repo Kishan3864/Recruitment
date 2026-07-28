@@ -152,7 +152,24 @@
   --animate-marquee: marquee 36s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-float-delayed: float 8s ease-in-out 1.2s infinite;
+  /* Icon spring wiggle on card hover — apply as
+     motion-safe:group-hover/tilt:animate-icon-wiggle */
+  --animate-icon-wiggle: icon-wiggle 0.45s var(--ease-soft);
 
+  @keyframes icon-wiggle {
+    0% {
+      rotate: 0deg;
+    }
+    30% {
+      rotate: -8deg;
+    }
+    65% {
+      rotate: 7deg;
+    }
+    100% {
+      rotate: 0deg;
+    }
+  }
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -325,6 +342,40 @@ html.lenis body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+  /* Hand-placed tilt card: rests at --tilt (md+ only — mobile stays straight),
+     eases to 0deg with a -4px lift on hover/focus. The static rotation is
+     decoration, not motion; only the transition is gated on no-preference. */
+  .tilt-card {
+    rotate: 0deg;
+  }
+  @media (min-width: 768px) {
+    .tilt-card {
+      rotate: var(--tilt, 0deg);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .tilt-card {
+      transition:
+        rotate var(--duration-hover) var(--ease-soft),
+        translate var(--duration-hover) var(--ease-soft),
+        box-shadow var(--duration-hover) var(--ease-soft);
+    }
+    .tilt-card:hover,
+    .tilt-card:focus-within {
+      rotate: 0deg;
+      translate: 0 -4px;
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+  /* Node badge: accent fill + white ring + soft glow in the same accent.
+     The accent arrives via --node-accent (see src/lib/tints.ts). */
+  .node-badge {
+    background: var(--node-accent, var(--color-brand-600));
+    box-shadow:
+      0 0 0 4px var(--card, #ffffff),
+      0 8px 20px -6px
+        color-mix(in oklab, var(--node-accent, var(--color-brand-600)) 55%, transparent);
   }
   /* Card hover: lift + shadow deepen (220ms, soft ease) */
   .card-lift {

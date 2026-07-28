@@ -2,9 +2,12 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
+import { DURATION, EASE_SOFT, REVEAL_VIEWPORT } from "@/lib/motion";
+
 /**
- * Scroll-reveal wrapper: fades + rises once when entering the viewport.
- * Respects prefers-reduced-motion (renders static). Use `delay` for stagger.
+ * Scroll-reveal wrapper: opacity 0→1, y 24→0, blur 4→0 — once, at 20%
+ * viewport entry, on the shared soft ease. Respects prefers-reduced-motion
+ * (renders static). Use `delay` for sibling stagger (90ms steps).
  */
 export function Reveal({
   children,
@@ -26,10 +29,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, delay, ease: [0.21, 0.65, 0.32, 0.95] }}
+      initial={{ opacity: 0, y, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: DURATION.reveal, delay, ease: EASE_SOFT }}
     >
       {children}
     </motion.div>
