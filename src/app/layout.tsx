@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
+import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { getSiteSettings } from "@/lib/content/site";
 import { fontDisplay, fontText } from "@/lib/fonts";
 
@@ -31,13 +32,15 @@ export default async function RootLayout({
     <html lang="en" className={`${fontText.variable} ${fontDisplay.variable}`}>
       <body className="antialiased">
         <SkipLink label={settings.ui.skipToContent} />
-        <div className="flex min-h-dvh flex-col">
-          <SiteHeader />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </div>
+        <SmoothScroll>
+          <div className="flex min-h-dvh flex-col">
+            <SiteHeader />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

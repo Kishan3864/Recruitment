@@ -289,6 +289,22 @@
   }
 }
 
+/* Lenis smooth-scroll plumbing (provider skips Lenis under reduced motion).
+   `scroll-behavior: auto` prevents double-smoothing while Lenis drives. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 @layer utilities {
   /* Deep-navy contrast section (hero / CTA band / footer) — ink base */
   .section-navy {
