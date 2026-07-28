@@ -35,7 +35,7 @@ export default async function JobsPage({
 
   const hasFilters = Boolean(filters.q || filters.location || filters.workMode || filters.type);
   const selectClass =
-    "h-9 rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
+    "h-9 rounded-sm border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
   return (
     <>
@@ -43,14 +43,14 @@ export default async function JobsPage({
         {/* GET form → SSR filtering via searchParams */}
         <form
           method="get"
-          className="relative mt-8 grid max-w-4xl gap-3 rounded-2xl border bg-card p-4 shadow-md sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto_auto]"
+          className="relative mt-8 grid max-w-4xl gap-3 rounded-lg border bg-card p-4 shadow-card sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto_auto]"
         >
           <input
             type="search"
             name="q"
             defaultValue={filters.q ?? ""}
             placeholder={page.filters.searchPlaceholder}
-            className="h-9 rounded-lg border border-input bg-background px-3.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+            className="h-9 rounded-sm border border-input bg-background px-3.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
             aria-label={page.filters.searchPlaceholder}
           />
           <select
@@ -121,18 +121,19 @@ export default async function JobsPage({
           {jobs.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {jobs.map((job, i) => (
-                <Reveal key={job.slug} delay={(i % 3) * 0.06}>
+                <Reveal key={job.slug} delay={(i % 3) * 0.09} className="h-full">
                   <JobCard
                     job={job}
                     viewLabel={page.list.viewJob}
                     featuredLabel={page.list.featuredBadge}
                     postedPrefix={page.list.postedPrefix}
+                    index={i}
                   />
                 </Reveal>
               ))}
             </div>
           ) : (
-            <div className="mx-auto max-w-md rounded-3xl border border-dashed p-12 text-center">
+            <div className="mx-auto max-w-md rounded-lg border border-dashed p-12 text-center">
               <SearchX className="mx-auto size-10 text-muted-foreground/50" aria-hidden="true" />
               <h2 className="mt-5 font-display text-lg font-semibold">{page.list.emptyTitle}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

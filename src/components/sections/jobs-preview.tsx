@@ -33,12 +33,13 @@ export function JobsPreview({
         />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {jobs.map((job, i) => (
-            <Reveal key={job.slug} delay={(i % 3) * 0.08}>
+            <Reveal key={job.slug} delay={(i % 3) * 0.09} className="h-full">
               <JobCard
                 job={job}
                 viewLabel={viewLabel}
                 featuredLabel={featuredLabel}
                 postedPrefix={postedPrefix}
+                index={i}
               />
             </Reveal>
           ))}
