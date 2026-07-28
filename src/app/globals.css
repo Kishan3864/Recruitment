@@ -77,6 +77,15 @@
   --color-accent-mint: #16a34a;
   --color-accent-peach: #ea580c;
 
+  /* Deep accent shades — AA-safe for small text/icons ON the pale tints
+     (bright accents are for fills, nodes and decoration only). */
+  --color-deep-cream: #86560c;
+  --color-deep-lavender: #6d28d9;
+  --color-deep-blush: #be123c;
+  --color-deep-sage: #1d4ed8;
+  --color-deep-mint: #15803d;
+  --color-deep-peach: #c2410c;
+
   /* Hairline borders: the tint nudged toward its accent (darker shade). */
   --color-line-cream: color-mix(in oklab, #fbf6e9 78%, #c98a16);
   --color-line-lavender: color-mix(in oklab, #f4f0fc 78%, #7c3aed);

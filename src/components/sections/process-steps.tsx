@@ -74,7 +74,7 @@ export function ProcessSteps({
                       className={cn(
                         "z-10 flex size-8 shrink-0 items-center justify-center rounded-full border font-display text-sm font-bold transition-colors duration-300",
                         active >= i
-                          ? cn("border-transparent text-white", TINT[tintAt(i)].fill)
+                          ? cn("border-transparent text-white", TINT[tintAt(i)].fillDeep)
                           : "border-border bg-card text-muted-foreground"
                       )}
                       aria-hidden="true"
@@ -135,7 +135,7 @@ export function ProcessSteps({
                         className={cn(
                           "flex size-14 items-center justify-center rounded-md",
                           t.wash,
-                          t.text
+                          t.deep
                         )}
                       >
                         <ContentIcon name={step.icon} className="size-7" />
@@ -176,7 +176,7 @@ export function ProcessSteps({
                   <span
                     className={cn(
                       "z-10 flex size-8 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold text-white",
-                      t.fill
+                      t.fillDeep
                     )}
                   >
                     {i + 1}
@@ -187,7 +187,7 @@ export function ProcessSteps({
                         className={cn(
                           "mb-4 flex size-11 items-center justify-center rounded-md",
                           t.wash,
-                          t.text
+                          t.deep
                         )}
                       >
                         <ContentIcon name={step.icon} className="size-5.5" />

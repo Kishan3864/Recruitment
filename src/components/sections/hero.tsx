@@ -121,7 +121,7 @@ export function Hero({ content }: { content: HomePageContent["hero"] }) {
             </div>
 
             <div className="absolute -right-3 bottom-10 flex rotate-[1.5deg] animate-float-delayed items-center gap-3 rounded-lg border border-line-mint bg-tint-mint p-4 shadow-card lg:-right-8">
-              <span className="flex size-10 items-center justify-center rounded-full bg-accent-mint font-display text-xs font-bold text-white">
+              <span className="flex size-10 items-center justify-center rounded-full bg-deep-mint font-display text-xs font-bold text-white">
                 {content.cardMatch.percent}
               </span>
               <span>

@@ -16,7 +16,7 @@ function FeatureBody({ feature, tint }: { feature: FeatureContent; tint: Tint })
     <>
       <NodeBadge tint={tint} className="absolute -top-3.5 left-1/2 size-7 -translate-x-1/2" />
       <span
-        className={cn("mb-5 flex size-11 items-center justify-center rounded-md", t.wash, t.text)}
+        className={cn("mb-5 flex size-11 items-center justify-center rounded-md", t.wash, t.deep)}
       >
         <ContentIcon
           name={feature.icon}
