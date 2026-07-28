@@ -20,7 +20,7 @@ export function DashedConnector({
   className,
   stroke = "var(--color-neutral-300)",
   strokeWidth = 2,
-  dash = "2 10",
+  dash = "0.01 1.5",
   preserveAspectRatio = "none",
   offset = ["start 0.75", "end 0.4"],
 }: {
@@ -31,7 +31,11 @@ export function DashedConnector({
   /** Any CSS color, e.g. `var(--color-accent-lavender)`. */
   stroke?: string;
   strokeWidth?: number;
-  /** stroke-dasharray, e.g. "2 10" for dotted, "8 8" for dashed. */
+  /**
+   * stroke-dasharray in 1/100ths of the total path length (the visual path
+   * is normalized with pathLength=100, so dashes stay even when the viewBox
+   * is stretched). "0.01 1.5" = round dots; "1 1.5" = dashes.
+   */
   dash?: string;
   preserveAspectRatio?: string;
   /** useScroll offset — when the draw starts/finishes relative to viewport. */
@@ -76,6 +80,7 @@ export function DashedConnector({
       )}
       <path
         d={d}
+        pathLength={100}
         stroke={stroke}
         strokeWidth={strokeWidth}
         strokeLinecap="round"
