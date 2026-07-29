@@ -22,8 +22,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       if (lenis) return;
       // Long exponential ease-out tail = the "slippery" coast after each
       // wheel input. Raise duration for more glide, lower for tighter feel.
+      // wheelMultiplier raises distance-per-flick (speed); duration keeps
+      // the long slippery coast. Tune speed via multiplier, feel via duration.
       lenis = new Lenis({
         duration: 2.4,
+        wheelMultiplier: 1.5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
       const raf = (time: number) => {
