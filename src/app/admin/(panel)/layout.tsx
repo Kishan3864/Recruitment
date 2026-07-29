@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { eq, sql } from "drizzle-orm";
 import { ExternalLink, LogOut } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/auth-actions";
-import { AdminNav, type AdminNavItem } from "@/components/admin/admin-nav";
+import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
+import { safeQuery, schema } from "@/db/client";
 import { requireAdmin } from "@/lib/admin/auth";
 import { COLLECTIONS } from "@/lib/admin/registry";
 import type { Tint } from "@/lib/tints";
@@ -18,23 +20,57 @@ export const metadata: Metadata = {
 /** Admin is always rendered per-request — never prerendered at build time. */
 export const dynamic = "force-dynamic";
 
-/** Admin shell: ice-blue sidebar with tint-node nav, topbar with session. */
+/** Admin shell: grouped ice-blue sidebar with tint-node nav + avatar topbar. */
 export default async function AdminPanelLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const session = await requireAdmin();
 
-  const nav: AdminNavItem[] = [
-    { href: "/admin", label: "Dashboard", icon: "target", tint: "sage" },
-    ...COLLECTIONS.map((c) => ({
-      href: `/admin/content/${c.key}`,
-      label: c.label,
-      icon: c.icon,
-      tint: c.tint as Tint,
-    })),
-    { href: "/admin/submissions", label: "Submissions", icon: "mail", tint: "blush" },
-    { href: "/admin/settings", label: "Site settings", icon: "lock", tint: "cream" },
+  const newSubmissions =
+    (await safeQuery(async (db) => {
+      const [row] = await db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(schema.submissions)
+        .where(eq(schema.submissions.status, "new"));
+      return row.n;
+    })) ?? 0;
+
+  const groups: AdminNavGroup[] = [
+    {
+      title: "Overview",
+      items: [{ href: "/admin", label: "Dashboard", icon: "layout-dashboard", tint: "sage" }],
+    },
+    {
+      title: "Content",
+      items: COLLECTIONS.map((c) => ({
+        href: `/admin/content/${c.key}`,
+        label: c.label,
+        icon: c.icon,
+        tint: c.tint as Tint,
+      })),
+    },
+    {
+      title: "Inbox",
+      items: [
+        {
+          href: "/admin/submissions",
+          label: "Submissions",
+          icon: "inbox",
+          tint: "blush",
+          badge: newSubmissions,
+        },
+      ],
+    },
+    {
+      title: "System",
+      items: [
+        { href: "/admin/settings", label: "Site settings", icon: "settings", tint: "cream" },
+        { href: "/admin/account", label: "Account", icon: "key-round", tint: "peach" },
+      ],
+    },
   ];
+
+  const initial = (session.name || session.email).charAt(0).toUpperCase();
 
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
@@ -47,14 +83,28 @@ export default async function AdminPanelLayout({
             <BrandLogo name="Admin" />
           </Link>
         </div>
-        <AdminNav items={nav} />
+        <AdminNav groups={groups} />
       </aside>
 
       <div className="min-w-0 flex-1">
         <header className="flex items-center justify-between gap-3 border-b border-border bg-white px-5 py-3 lg:px-8">
-          <p className="truncate text-sm text-muted-foreground">
-            Signed in as <span className="font-semibold text-foreground">{session.email}</span>
-          </p>
+          <Link
+            href="/admin/account"
+            className="group flex min-w-0 items-center gap-3 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+          >
+            <span
+              aria-hidden="true"
+              className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-950 font-display text-sm font-bold text-white"
+            >
+              {initial}
+            </span>
+            <span className="hidden min-w-0 sm:block">
+              <span className="block truncate text-sm font-semibold group-hover:text-brand-700">
+                {session.name}
+              </span>
+              <span className="block truncate text-xs text-muted-foreground">{session.email}</span>
+            </span>
+          </Link>
           <div className="flex items-center gap-2">
             <Button asChild size="sm" variant="outline">
               <Link href="/" target="_blank">

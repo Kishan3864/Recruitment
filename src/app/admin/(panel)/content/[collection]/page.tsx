@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Plus } from "lucide-react";
 
 import { deleteItem } from "@/app/admin/content-actions";
-import { DeleteButton } from "@/components/admin/delete-button";
+import { DataTable, type DataTableRow } from "@/components/admin/data-table";
 import { ContentIcon } from "@/components/shared/icon";
 import { Button } from "@/components/ui/button";
 import { getDb } from "@/db/client";
@@ -31,8 +31,25 @@ export default async function CollectionListPage({
   const def = getCollection(collection);
   if (!def) notFound();
   const db = getDb();
-  const rows = db ? await def.list(db) : [];
+  let rows: Row[] = [];
+  let dbError = false;
+  if (db) {
+    try {
+      rows = await def.list(db);
+    } catch (err) {
+      console.error(`[admin] ${def.key} list query failed:`, err);
+      dbError = true;
+    }
+  }
   const t = TINT[def.tint];
+
+  const tableRows: DataTableRow[] = rows.map((row) => ({
+    id: row.id,
+    cells: def.listColumns.map((col) => cell(row[col.name])),
+    editHref: `/admin/content/${def.key}/${row.id}`,
+    deleteAction: deleteItem.bind(null, def.key, row.id),
+    deleteLabel: rowLabel(row),
+  }));
 
   return (
     <div className="space-y-6">
@@ -62,50 +79,20 @@ export default async function CollectionListPage({
         <p className="rounded-lg border border-line-cream bg-tint-cream p-4 text-sm">
           Database not connected — content is read-only seed data right now.
         </p>
+      ) : dbError ? (
+        <p className="rounded-lg border border-line-blush bg-tint-blush p-4 text-sm">
+          Database connection failed — check the credentials, then restart the app.
+        </p>
       ) : rows.length === 0 ? (
         <p className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">
           No {def.label.toLowerCase()} yet — create the first one.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border bg-white">
-          <table className="w-full min-w-[40rem] text-sm">
-            <thead>
-              <tr className="border-b border-border text-left">
-                {def.listColumns.map((col) => (
-                  <th
-                    key={col.name}
-                    className="px-4 py-3 text-eyebrow font-semibold text-muted-foreground uppercase"
-                  >
-                    {col.label}
-                  </th>
-                ))}
-                <th className="px-4 py-3" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {rows.map((row) => (
-                <tr key={row.id} className="hover:bg-neutral-50">
-                  {def.listColumns.map((col, i) => (
-                    <td key={col.name} className={cn("px-4 py-3", i === 0 && "font-semibold")}>
-                      {cell(row[col.name])}
-                    </td>
-                  ))}
-                  <td className="px-4 py-2">
-                    <div className="flex items-center justify-end gap-2">
-                      <Button asChild size="sm" variant="outline">
-                        <Link href={`/admin/content/${def.key}/${row.id}`}>Edit</Link>
-                      </Button>
-                      <DeleteButton
-                        action={deleteItem.bind(null, def.key, row.id)}
-                        label={rowLabel(row)}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          columns={def.listColumns.map((c) => c.label)}
+          rows={tableRows}
+          searchPlaceholder={`Search ${def.label.toLowerCase()}…`}
+        />
       )}
     </div>
   );
