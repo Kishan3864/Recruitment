@@ -5,10 +5,10 @@ import { ExternalLink, LogOut } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/auth-actions";
 import { AdminDrawer } from "@/components/admin/admin-drawer";
+import { AdminLogo } from "@/components/admin/admin-logo";
 import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
 import { AdminPwaSetup } from "@/components/admin/admin-pwa-setup";
 import { AdminTabBar, type AdminTab } from "@/components/admin/admin-tab-bar";
-import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
 import { safeQuery, schema } from "@/db/client";
 import { requireAdmin } from "@/lib/admin/auth";
@@ -94,7 +94,7 @@ export default async function AdminPanelLayout({
             href="/admin"
             className="outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
           >
-            <BrandLogo name="Admin" />
+            <AdminLogo />
           </Link>
         </div>
         <AdminNav groups={groups} />
@@ -111,7 +111,7 @@ export default async function AdminPanelLayout({
               href="/admin"
               className="shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/60 lg:hidden"
             >
-              <BrandLogo name="Admin" />
+              <AdminLogo />
             </Link>
             <span aria-hidden="true" className="h-6 w-px shrink-0 bg-border lg:hidden" />
             <Link

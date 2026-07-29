@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 
+import { AdminLogo } from "@/components/admin/admin-logo";
 import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
-import { BrandLogo } from "@/components/shared/brand-logo";
 
 /**
  * Mobile/tablet drawer — hamburger in the topbar opens the full grouped
@@ -37,7 +37,7 @@ export function AdminDrawer({ groups }: { groups: AdminNavGroup[] }) {
         >
           <Dialog.Title className="sr-only">Admin menu</Dialog.Title>
           <div className="flex shrink-0 items-center justify-between border-b border-brand-100 px-4 py-4">
-            <BrandLogo name="Admin" />
+            <AdminLogo />
             <Dialog.Close asChild>
               <button
                 aria-label="Close menu"
