@@ -48,7 +48,7 @@ export function MobileNav({
       <Dialog.Trigger asChild>
         <button
           aria-label={openLabel}
-          className="flex size-10 items-center justify-center rounded-full border border-border bg-white text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+          className="flex size-10 items-center justify-center rounded-sm border border-brand-100 bg-white text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
         >
           {/* bars + amber dot — the brand glyph, not a generic hamburger */}
           <span className="relative block h-3.5 w-5" aria-hidden="true">

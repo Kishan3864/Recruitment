@@ -43,7 +43,7 @@ export function NavLink({
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group/nav relative flex h-9 items-center rounded-full px-3 text-[13.5px] font-medium transition-colors duration-200 outline-none xl:px-3.5 xl:text-sm",
+        "group/nav relative flex h-9 items-center rounded-sm px-3 text-[13.5px] font-medium transition-colors duration-200 outline-none xl:px-3.5 xl:text-sm",
         "focus-visible:ring-2 focus-visible:ring-ring/60",
         active
           ? cn("font-semibold text-foreground", TAB[tint].active)

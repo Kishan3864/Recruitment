@@ -150,6 +150,10 @@
   /* Signature card shadow pair (rest / hover-lift) */
   --shadow-card: 0 1px 2px rgb(22 35 61 / 0.05), 0 8px 24px -8px rgb(22 35 61 / 0.1);
   --shadow-card-hover: 0 2px 4px rgb(22 35 61 / 0.06), 0 16px 32px -12px rgb(22 35 61 / 0.16);
+  /* Header island surface: crisp inner top highlight + the card shadow */
+  --shadow-island:
+    inset 0 1px 0 rgb(255 255 255 / 0.85), 0 1px 2px rgb(22 35 61 / 0.05),
+    0 8px 24px -8px rgb(22 35 61 / 0.1);
 
   /* ── Motion: one easing, four durations (mirrored in src/lib/motion.ts) ─ */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);

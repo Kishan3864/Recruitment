@@ -42,6 +42,7 @@ export function HeaderShell({
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
   const nodeLeft = useTransform(progress, (v) => `${v * 100}%`);
+  const trailClip = useTransform(progress, (v) => `inset(0 ${(1 - v) * 100}% 0 0)`);
 
   useEffect(() => {
     const onScroll = () => {
@@ -66,7 +67,7 @@ export function HeaderShell({
   /* Island surface at rest → dissolves when the capsule takes over. */
   const island = (extra?: string) =>
     cn(
-      "ease-soft flex h-full items-center border bg-white shadow-card transition-all duration-300",
+      "ease-soft shadow-island flex h-full items-center border border-brand-100 bg-brand-50 transition-all duration-300",
       scrolled && "border-transparent bg-transparent shadow-none",
       extra
     );
@@ -80,13 +81,13 @@ export function HeaderShell({
             className={cn(
               "pointer-events-auto flex items-center justify-between gap-3 border transition-all duration-300 ease-soft",
               scrolled
-                ? "mt-2 h-14 rounded-lg border-border bg-white/92 px-2 shadow-card backdrop-blur-md"
+                ? "mt-2 h-14 rounded-md border-brand-100 bg-brand-50/90 px-2 shadow-island backdrop-blur-md"
                 : "mt-3 h-16 border-transparent"
             )}
           >
             {/* Brand island */}
             <motion.div {...enter(0)} className="h-full">
-              <div className={island("rounded-lg px-4")}>
+              <div className={island("rounded-md px-4")}>
                 <Link
                   href="/"
                   aria-label={settings.brandName}
@@ -107,6 +108,11 @@ export function HeaderShell({
                   animate={{ clipPath: "inset(0 0 0 0)" }}
                   transition={{ duration: 0.6, delay: 0.26, ease: EASE_SOFT }}
                 />
+                {/* traversed dots light up blue behind the traveling node */}
+                <motion.div
+                  style={{ clipPath: trailClip }}
+                  className="absolute inset-0 h-0.5 bg-[radial-gradient(circle,var(--color-brand-400)_1px,transparent_1.4px)] bg-[length:8px_2px] bg-repeat-x"
+                />
                 <motion.span
                   style={{ left: nodeLeft }}
                   className="absolute top-1/2 size-2.5 -translate-1/2 rounded-full bg-accent-cream shadow-[0_0_0_2px_#ffffff,0_0_10px_1px_var(--color-accent-cream)]"
@@ -122,7 +128,7 @@ export function HeaderShell({
             </div>
 
             {/* Nav rail island: pill tabs + fused amber CTA end-cap */}
-            <div className={island("hidden gap-1 rounded-full py-2 pr-2 pl-3 lg:flex")}>
+            <div className={island("hidden gap-1 rounded-md py-2 pr-2 pl-2.5 lg:flex")}>
               <nav
                 aria-label={settings.ui.mainNavLabel}
                 className="flex items-center gap-0.5 xl:gap-1"
@@ -133,19 +139,19 @@ export function HeaderShell({
                   </motion.div>
                 ))}
               </nav>
-              <span aria-hidden="true" className="mx-1.5 h-6 w-px shrink-0 bg-border" />
+              <span aria-hidden="true" className="mx-1.5 h-6 w-px shrink-0 bg-brand-100" />
               <motion.div {...enter(0.48)}>
                 <Magnetic strength={5}>
                   <Button
                     asChild
-                    className="relative h-10 overflow-hidden rounded-full bg-cta px-4 text-cta-foreground hover:bg-cta/90"
+                    className="relative h-10 overflow-hidden rounded-sm bg-cta px-4 text-cta-foreground hover:bg-cta/90"
                   >
                     <Link href={settings.ctaEmployers.href}>
                       {/* white panel retracts to reveal the amber fill (terminus wipe) */}
                       {!reduceMotion && (
                         <motion.span
                           aria-hidden="true"
-                          className="absolute inset-0 origin-right bg-white"
+                          className="absolute inset-0 origin-right bg-brand-50"
                           initial={{ scaleX: 1 }}
                           animate={{ scaleX: 0 }}
                           transition={{ duration: 0.32, delay: 0.56, ease: EASE_SOFT }}
@@ -175,11 +181,11 @@ export function HeaderShell({
 
             {/* Mobile island: compact CTA + junction-map trigger */}
             <motion.div {...enter(0.15)} className="h-full lg:hidden">
-              <div className={island("gap-2 rounded-full py-2 pr-2 pl-2.5")}>
+              <div className={island("gap-2 rounded-md py-2 pr-2 pl-2.5")}>
                 <Button
                   asChild
                   size="sm"
-                  className="hidden rounded-full bg-cta text-cta-foreground hover:bg-cta/90 sm:inline-flex"
+                  className="hidden bg-cta text-cta-foreground hover:bg-cta/90 sm:inline-flex"
                 >
                   <Link href={settings.ctaEmployers.href}>{settings.ctaEmployers.label}</Link>
                 </Button>
