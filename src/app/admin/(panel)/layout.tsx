@@ -5,6 +5,7 @@ import { ExternalLink, LogOut } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/auth-actions";
 import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
+import { AdminTabBar, type AdminTab } from "@/components/admin/admin-tab-bar";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
 import { safeQuery, schema } from "@/db/client";
@@ -70,11 +71,20 @@ export default async function AdminPanelLayout({
     },
   ];
 
+  const tabs: AdminTab[] = [
+    { href: "/admin", label: "Dashboard", icon: "layout-dashboard", tint: "sage" },
+    { href: "/admin/content", label: "Content", icon: "layers", tint: "lavender" },
+    { href: "/admin/submissions", label: "Inbox", icon: "inbox", tint: "blush", badge: newSubmissions },
+    { href: "/admin/settings", label: "Settings", icon: "settings", tint: "cream" },
+    { href: "/admin/account", label: "Account", icon: "key-round", tint: "peach" },
+  ];
+
   const initial = (session.name || session.email).charAt(0).toUpperCase();
 
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
-      <aside className="shrink-0 border-b border-brand-100 bg-brand-50 lg:sticky lg:top-0 lg:h-svh lg:w-64 lg:overflow-y-auto lg:border-r lg:border-b-0">
+      {/* Desktop rail — phones/tablets use the bottom tab bar instead. */}
+      <aside className="hidden shrink-0 border-brand-100 bg-brand-50 lg:sticky lg:top-0 lg:block lg:h-svh lg:w-64 lg:overflow-y-auto lg:border-r">
         <div className="flex items-center justify-between border-b border-brand-100 px-4 py-4">
           <Link
             href="/admin"
@@ -87,41 +97,54 @@ export default async function AdminPanelLayout({
       </aside>
 
       <div className="min-w-0 flex-1">
-        <header className="flex items-center justify-between gap-3 border-b border-border bg-white px-5 py-3 lg:px-8">
-          <Link
-            href="/admin/account"
-            className="group flex min-w-0 items-center gap-3 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
-          >
-            <span
-              aria-hidden="true"
-              className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-950 font-display text-sm font-bold text-white"
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-white/95 px-4 py-3 backdrop-blur-md lg:static lg:bg-white lg:px-8">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link
+              href="/admin"
+              className="shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/60 lg:hidden"
             >
-              {initial}
-            </span>
-            <span className="hidden min-w-0 sm:block">
-              <span className="block truncate text-sm font-semibold group-hover:text-brand-700">
-                {session.name}
+              <BrandLogo name="Admin" />
+            </Link>
+            <span aria-hidden="true" className="h-6 w-px shrink-0 bg-border lg:hidden" />
+            <Link
+              href="/admin/account"
+              className="group flex min-w-0 items-center gap-3 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+            >
+              <span
+                aria-hidden="true"
+                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-950 font-display text-sm font-bold text-white"
+              >
+                {initial}
               </span>
-              <span className="block truncate text-xs text-muted-foreground">{session.email}</span>
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
+              <span className="hidden min-w-0 md:block">
+                <span className="block truncate text-sm font-semibold group-hover:text-brand-700">
+                  {session.name}
+                </span>
+                <span className="block truncate text-xs text-muted-foreground">
+                  {session.email}
+                </span>
+              </span>
+            </Link>
+          </div>
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <Button asChild size="sm" variant="outline">
-              <Link href="/" target="_blank">
-                View site
+              <Link href="/" target="_blank" aria-label="View site (opens in a new tab)">
+                <span className="hidden sm:inline">View site</span>
                 <ExternalLink data-icon="inline-end" aria-hidden="true" />
               </Link>
             </Button>
             <form action={logoutAction}>
-              <Button size="sm" variant="ghost" type="submit">
+              <Button size="sm" variant="ghost" type="submit" aria-label="Log out">
                 <LogOut data-icon="inline-start" aria-hidden="true" />
-                Log out
+                <span className="hidden sm:inline">Log out</span>
               </Button>
             </form>
           </div>
         </header>
-        <main className="p-5 lg:p-8">{children}</main>
+        <main className="p-4 pb-28 sm:p-5 lg:p-8 lg:pb-8">{children}</main>
       </div>
+
+      <AdminTabBar tabs={tabs} />
     </div>
   );
 }

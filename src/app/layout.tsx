@@ -27,6 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: settings.seo.defaultDescription,
     applicationName: settings.brandName,
+    manifest: "/manifest.webmanifest",
     appleWebApp: {
       capable: true,
       title: settings.brandName,

@@ -181,7 +181,7 @@ export function Donut({
     });
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex flex-wrap items-center gap-5">
       <svg viewBox="0 0 112 112" role="img" aria-label={ariaLabel} className="size-32 shrink-0">
         <circle
           cx="56"

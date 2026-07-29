@@ -4,7 +4,7 @@
  * - Hashed immutable assets (/_next/static, fonts, images): cache-first.
  * - Versioned cache, old versions cleaned on activate.
  */
-const VERSION = "rec-v1";
+const VERSION = "rec-v2";
 const OFFLINE_URL = "/offline";
 
 self.addEventListener("install", (event) => {
@@ -32,6 +32,19 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+
+  // Admin panel: never cache (fresh, authed data only). Navigations still get
+  // the offline fallback; everything else goes straight to the network.
+  if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+    if (request.mode === "navigate") {
+      event.respondWith(
+        fetch(request).catch(() =>
+          caches.match(OFFLINE_URL).then((cached) => cached || Response.error())
+        )
+      );
+    }
+    return;
+  }
 
   // App navigations: network-first with offline fallback.
   if (request.mode === "navigate") {
