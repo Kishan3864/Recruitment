@@ -17,8 +17,9 @@ export interface AdminTab {
 
 /**
  * Mobile bottom tab bar — the native-app spine of the admin panel on phones
- * and tablets. Frosted ice-blue, safe-area aware; the active tab lights its
- * tint node exactly like the sidebar does on desktop.
+ * and tablets. Sits as the app frame's pinned footer (the frame owns the
+ * viewport; only <main> scrolls). Active tab lights its tint node exactly
+ * like the sidebar does on desktop; taps get a native press-scale response.
  */
 export function AdminTabBar({ tabs }: { tabs: AdminTab[] }) {
   const pathname = usePathname();
@@ -26,7 +27,7 @@ export function AdminTabBar({ tabs }: { tabs: AdminTab[] }) {
   return (
     <nav
       aria-label="Admin sections"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-brand-100 bg-brand-50/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
+      className="shrink-0 border-t border-brand-100 bg-brand-50 pb-[env(safe-area-inset-bottom)] select-none lg:hidden"
     >
       <ul className="mx-auto flex max-w-lg items-stretch">
         {tabs.map((tab) => {
@@ -38,7 +39,7 @@ export function AdminTabBar({ tabs }: { tabs: AdminTab[] }) {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex flex-col items-center gap-1 px-1 pt-2.5 pb-2 outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
+                  "group relative flex flex-col items-center gap-1 px-1 pt-2.5 pb-2 outline-none [touch-action:manipulation] focus-visible:ring-2 focus-visible:ring-ring/60",
                   TINT[tab.tint].node
                 )}
               >
@@ -51,7 +52,7 @@ export function AdminTabBar({ tabs }: { tabs: AdminTab[] }) {
                       : "opacity-0"
                   )}
                 />
-                <span className="relative">
+                <span className="relative transition-transform duration-100 group-active:scale-90">
                   <ContentIcon
                     name={tab.icon}
                     className={cn(

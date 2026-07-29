@@ -49,11 +49,17 @@ export function AdminPwaSetup() {
     const onPrompt = (e: Event) => {
       e.preventDefault();
       setInstallEvent(e as BeforeInstallPromptEvent);
+      // Stash for late-mounting surfaces (Account page's install card) —
+      // beforeinstallprompt fires once, early, and never again on SPA navs.
+      (window as unknown as { __adminInstallPrompt?: Event }).__adminInstallPrompt = e;
+      window.dispatchEvent(new Event("admin-install-available"));
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
     const onInstalled = () => {
       setInstallEvent(null);
       setVisible(false);
+      (window as unknown as { __adminInstallPrompt?: Event | null }).__adminInstallPrompt = null;
+      window.dispatchEvent(new Event("admin-app-installed"));
     };
     window.addEventListener("appinstalled", onInstalled);
 

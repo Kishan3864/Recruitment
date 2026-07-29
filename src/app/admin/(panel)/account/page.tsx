@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { ShieldCheck } from "lucide-react";
 
 import { PasswordForm, ProfileForm } from "@/components/admin/account-forms";
+import { InstallAppCard } from "@/components/admin/install-app-card";
 import { getDb, schema } from "@/db/client";
 import { requireAdmin } from "@/lib/admin/auth";
 
@@ -76,6 +77,13 @@ export default async function AccountPage() {
         </p>
         <div className="mt-4">
           <PasswordForm />
+        </div>
+      </section>
+
+      <section className="rounded-lg border bg-white p-5">
+        <h2 className="font-display text-lg font-bold">Admin app</h2>
+        <div className="mt-4">
+          <InstallAppCard />
         </div>
       </section>
 

@@ -82,9 +82,11 @@ export default async function AdminPanelLayout({
   const initial = (session.name || session.email).charAt(0).toUpperCase();
 
   return (
-    <div className="flex min-h-svh flex-col lg:flex-row">
+    /* App frame: the shell itself never scrolls — only <main> does. Chrome
+       (topbar, rail, tab bar) stays pinned exactly like a native app. */
+    <div className="flex h-dvh flex-col overflow-hidden [-webkit-tap-highlight-color:transparent] lg:flex-row">
       {/* Desktop rail — phones/tablets use the bottom tab bar instead. */}
-      <aside className="hidden shrink-0 border-brand-100 bg-brand-50 lg:sticky lg:top-0 lg:block lg:h-svh lg:w-64 lg:overflow-y-auto lg:border-r">
+      <aside className="hidden shrink-0 border-brand-100 bg-brand-50 select-none lg:block lg:h-full lg:w-64 lg:overflow-y-auto lg:border-r">
         <div className="flex items-center justify-between border-b border-brand-100 px-4 py-4">
           <Link
             href="/admin"
@@ -96,8 +98,8 @@ export default async function AdminPanelLayout({
         <AdminNav groups={groups} />
       </aside>
 
-      <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-white/95 px-4 py-3 backdrop-blur-md lg:static lg:bg-white lg:px-8">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-white px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 select-none lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <Link
               href="/admin"
@@ -141,10 +143,13 @@ export default async function AdminPanelLayout({
             </form>
           </div>
         </header>
-        <main className="p-4 pb-28 sm:p-5 lg:p-8 lg:pb-8">{children}</main>
-      </div>
 
-      <AdminTabBar tabs={tabs} />
+        <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 pb-8 [touch-action:manipulation] sm:p-5 lg:p-8">
+          {children}
+        </main>
+
+        <AdminTabBar tabs={tabs} />
+      </div>
     </div>
   );
 }

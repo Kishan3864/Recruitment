@@ -7,10 +7,14 @@ import { AdminPwaSetup } from "@/components/admin/admin-pwa-setup";
  * admin-specific web-app manifest so the panel installs as its own "Admin"
  * app (start_url /admin, junction-node icon), separate from the public site.
  */
+/* Native-app viewport: status bar merges with the white topbar and pinch
+ * zoom is off — the panel scales type fluidly instead, like a real app. */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#eff6ff",
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#ffffff",
   viewportFit: "cover",
 };
 
