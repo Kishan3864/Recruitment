@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 
-import { AdminPwaSetup } from "@/components/admin/admin-pwa-setup";
-
 /**
  * Segment layout for everything under /admin (login + panel): links the
  * admin-specific web-app manifest so the panel installs as its own "Admin"
@@ -29,10 +27,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <>
-      {children}
-      <AdminPwaSetup />
-    </>
-  );
+  return children;
 }

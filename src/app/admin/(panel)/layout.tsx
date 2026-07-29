@@ -5,6 +5,7 @@ import { ExternalLink, LogOut } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/auth-actions";
 import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
+import { AdminPwaSetup } from "@/components/admin/admin-pwa-setup";
 import { AdminTabBar, type AdminTab } from "@/components/admin/admin-tab-bar";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
@@ -150,6 +151,9 @@ export default async function AdminPanelLayout({
 
         <AdminTabBar tabs={tabs} />
       </div>
+
+      {/* Install popup — after login only, every device, until installed. */}
+      <AdminPwaSetup />
     </div>
   );
 }

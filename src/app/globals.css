@@ -219,6 +219,19 @@
       transform: translateY(-14px);
     }
   }
+  /* Sheet/card entrance — used by the admin install popup */
+  --animate-rise: rise 0.32s var(--ease-soft);
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* Semantic tokens */

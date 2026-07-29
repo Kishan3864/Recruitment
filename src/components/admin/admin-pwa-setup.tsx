@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MonitorDown, Share, X } from "lucide-react";
+import { MonitorDown, MoreVertical, Share, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const DISMISS_KEY = "admin-pwa-install-dismissed";
-const DISMISS_DAYS = 14;
+/*
+ * Install popup for the admin panel — shown after login on EVERY device
+ * until the app is installed. Unlike the site's card (which only appears
+ * when the browser volunteers beforeinstallprompt), this one always shows:
+ * with the real install prompt when available, otherwise with exact
+ * per-platform steps. "Not now" hides it for the current session only.
+ */
+
+const SESSION_DISMISS_KEY = "admin-install-dismissed-session";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -17,25 +24,18 @@ const isStandalone = () =>
   window.matchMedia("(display-mode: standalone)").matches ||
   ("standalone" in navigator && (navigator as { standalone?: boolean }).standalone === true);
 
-const recentlyDismissed = () => {
+const sessionDismissed = () => {
   try {
-    const ts = Number(localStorage.getItem(DISMISS_KEY) || 0);
-    return Date.now() - ts < DISMISS_DAYS * 864e5;
+    return sessionStorage.getItem(SESSION_DISMISS_KEY) === "1";
   } catch {
     return false;
   }
 };
 
-/**
- * Admin PWA plumbing: registers the shared service worker and offers an
- * "install the admin app" card. The admin pages link their own manifest
- * (start_url /admin), so installing from here creates a separate Admin app
- * with its own icon. No consent gating — this surface is for the site owner.
- */
 export function AdminPwaSetup() {
   const [installEvent, setInstallEvent] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showIosHint, setShowIosHint] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isIos, setIsIos] = useState(false);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
@@ -44,7 +44,9 @@ export function AdminPwaSetup() {
   }, []);
 
   useEffect(() => {
-    if (isStandalone() || recentlyDismissed()) return;
+    if (isStandalone()) return;
+
+    setIsIos(/iPhone|iPad|iPod/.test(navigator.userAgent));
 
     const onPrompt = (e: Event) => {
       e.preventDefault();
@@ -55,6 +57,7 @@ export function AdminPwaSetup() {
       window.dispatchEvent(new Event("admin-install-available"));
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
+
     const onInstalled = () => {
       setInstallEvent(null);
       setVisible(false);
@@ -63,25 +66,24 @@ export function AdminPwaSetup() {
     };
     window.addEventListener("appinstalled", onInstalled);
 
-    const ua = navigator.userAgent;
-    if (/iPhone|iPad|iPod/.test(ua) && !/CriOS|FxiOS/.test(ua)) setShowIosHint(true);
+    // Always surface the popup (slight delay so the page lands first) —
+    // even when the browser never fires beforeinstallprompt.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (!sessionDismissed()) {
+      timer = setTimeout(() => setVisible(true), 900);
+    }
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onPrompt);
       window.removeEventListener("appinstalled", onInstalled);
+      if (timer) clearTimeout(timer);
     };
   }, []);
-
-  useEffect(() => {
-    if (!installEvent && !showIosHint) return;
-    const t = setTimeout(() => setVisible(true), 1500);
-    return () => clearTimeout(t);
-  }, [installEvent, showIosHint]);
 
   const dismiss = () => {
     setVisible(false);
     try {
-      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      sessionStorage.setItem(SESSION_DISMISS_KEY, "1");
     } catch {
       /* storage unavailable */
     }
@@ -102,7 +104,7 @@ export function AdminPwaSetup() {
     <aside
       role="dialog"
       aria-label="Install the admin app"
-      className="fixed right-4 bottom-20 left-4 z-50 rounded-lg border border-brand-100 bg-white p-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-card-hover sm:left-auto sm:w-96 lg:bottom-4"
+      className="fixed inset-x-3 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-50 rounded-lg border border-brand-100 bg-white p-4 shadow-card-hover motion-safe:animate-rise sm:inset-x-auto sm:right-4 sm:w-96 lg:bottom-4"
     >
       <div className="flex items-start gap-3">
         <span
@@ -117,11 +119,43 @@ export function AdminPwaSetup() {
           <p className="font-display text-sm font-bold">Install the Admin app</p>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
             {installEvent
-              ? "Your command center on the home screen — full-screen, fast, with Inbox and New-job shortcuts."
-              : "Tap the Share button, then “Add to Home Screen” for the full-screen admin app."}
+              ? "Your command center on this device — full-screen, its own icon, Inbox and New-job shortcuts."
+              : isIos
+                ? "Open full-screen with its own icon — takes ten seconds:"
+                : "Open full-screen with its own icon — install it from the browser menu:"}
           </p>
+
+          {!installEvent && (
+            <p className="mt-2 flex items-start gap-2 rounded-sm border border-brand-100 bg-brand-50 p-2.5 text-xs">
+              {isIos ? (
+                <>
+                  <Share className="mt-0.5 size-3.5 shrink-0 text-brand-700" aria-hidden="true" />
+                  <span>
+                    Tap <span className="font-semibold">Share</span> →{" "}
+                    <span className="font-semibold">“Add to Home Screen”</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <MoreVertical
+                    className="mt-0.5 size-3.5 shrink-0 text-brand-700"
+                    aria-hidden="true"
+                  />
+                  <span>
+                    Browser menu <span className="font-semibold">⋮</span> →{" "}
+                    <span className="font-semibold">“Install app”</span>
+                    <span className="hidden sm:inline">
+                      {" "}
+                      (on a PC: the install icon in the address bar)
+                    </span>
+                  </span>
+                </>
+              )}
+            </p>
+          )}
+
           <div className="mt-3 flex items-center gap-2">
-            {installEvent ? (
+            {installEvent && (
               <Button
                 size="sm"
                 onClick={install}
@@ -130,11 +164,6 @@ export function AdminPwaSetup() {
                 <MonitorDown data-icon="inline-start" aria-hidden="true" />
                 Install app
               </Button>
-            ) : (
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-700">
-                <Share className="size-3.5" aria-hidden="true" />
-                Share → Add to Home Screen
-              </span>
             )}
             <Button size="sm" variant="ghost" onClick={dismiss}>
               Not now
