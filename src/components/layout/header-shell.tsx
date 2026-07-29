@@ -100,7 +100,9 @@ export function HeaderShell({
 
             {/* Bridge: dotted connector spanning the gap in BOTH states — the
                 amber node rides it start→end with total page scroll progress */}
-            <div aria-hidden="true" className="hidden h-full flex-1 items-center px-4 lg:flex">
+            {/* Visible from sm up — on tablet it spans brand → mobile island,
+                so the signature (and the progress node) never disappears */}
+            <div aria-hidden="true" className="hidden h-full flex-1 items-center px-4 sm:flex">
               <div className="relative flex w-full items-center">
                 <motion.div
                   className="h-0.5 w-full bg-[radial-gradient(circle,var(--color-neutral-300)_1px,transparent_1.4px)] bg-[length:8px_2px] bg-repeat-x"
@@ -144,7 +146,7 @@ export function HeaderShell({
                 <Magnetic strength={5}>
                   <Button
                     asChild
-                    className="relative h-10 overflow-hidden rounded-sm bg-cta px-4 text-cta-foreground hover:bg-cta/90"
+                    className="sheen relative h-10 overflow-hidden rounded-sm bg-cta px-4 text-cta-foreground hover:bg-cta/90"
                   >
                     <Link href={settings.ctaEmployers.href}>
                       {/* white panel retracts to reveal the amber fill (terminus wipe) */}

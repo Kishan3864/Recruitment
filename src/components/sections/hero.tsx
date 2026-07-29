@@ -57,7 +57,7 @@ export function Hero({ content }: { content: HomePageContent["hero"] }) {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full bg-cta text-cta-foreground hover:bg-cta/90 sm:w-auto"
+                  className="sheen w-full bg-cta text-cta-foreground hover:bg-cta/90 sm:w-auto"
                 >
                   <Link href={content.primaryCta.href}>
                     {content.primaryCta.label}
