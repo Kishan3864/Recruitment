@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -36,6 +36,12 @@ export function HeaderShell({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  // Page-progress node: rides the bridge from start (top of page) to end
+  // (bottom). Scroll-linked state, so it also tracks under reduced motion.
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
+  const nodeLeft = useTransform(progress, (v) => `${v * 100}%`);
 
   useEffect(() => {
     const onScroll = () => {
@@ -91,35 +97,28 @@ export function HeaderShell({
               </div>
             </motion.div>
 
-            {/* Bridge: dotted connector spanning the open gap (rest state only) */}
-            <div
-              aria-hidden="true"
-              className="relative hidden h-full flex-1 items-center px-4 lg:flex"
-            >
-              <motion.div
-                className="h-0.5 w-full bg-[radial-gradient(circle,var(--color-neutral-300)_1px,transparent_1.4px)] bg-[length:8px_2px] bg-repeat-x"
-                initial={reduceMotion ? false : { clipPath: "inset(0 100% 0 0)", opacity: 1 }}
-                animate={
-                  reduceMotion
-                    ? { opacity: scrolled ? 0 : 1 }
+            {/* Bridge: dotted connector spanning the gap in BOTH states — the
+                amber node rides it start→end with total page scroll progress */}
+            <div aria-hidden="true" className="hidden h-full flex-1 items-center px-4 lg:flex">
+              <div className="relative flex w-full items-center">
+                <motion.div
+                  className="h-0.5 w-full bg-[radial-gradient(circle,var(--color-neutral-300)_1px,transparent_1.4px)] bg-[length:8px_2px] bg-repeat-x"
+                  initial={reduceMotion ? false : { clipPath: "inset(0 100% 0 0)" }}
+                  animate={{ clipPath: "inset(0 0 0 0)" }}
+                  transition={{ duration: 0.6, delay: 0.26, ease: EASE_SOFT }}
+                />
+                <motion.span
+                  style={{ left: nodeLeft }}
+                  className="absolute top-1/2 size-2.5 -translate-1/2 rounded-full bg-accent-cream shadow-[0_0_0_2px_#ffffff,0_0_10px_1px_var(--color-accent-cream)]"
+                  {...(reduceMotion
+                    ? {}
                     : {
-                        clipPath: scrolled ? "inset(0 0 0 100%)" : "inset(0 0 0 0)",
-                        opacity: scrolled ? 0 : 1,
-                      }
-                }
-                transition={{ duration: 0.4, delay: reduceMotion ? 0 : 0.26, ease: EASE_SOFT }}
-              />
-              {/* mid-bridge node */}
-              <motion.span
-                className="absolute top-1/2 left-1/2 size-2.5 -translate-1/2 rounded-full bg-accent-cream shadow-[0_0_0_2px_#ffffff,0_0_10px_1px_var(--color-accent-cream)]"
-                {...(reduceMotion
-                  ? { animate: { opacity: scrolled ? 0 : 1 } }
-                  : {
-                      initial: { scale: 0, opacity: 0 },
-                      animate: scrolled ? { scale: 0.5, opacity: 0 } : { scale: 1, opacity: 1 },
-                      transition: { duration: 0.32, delay: 0.6, ease: EASE_SOFT },
-                    })}
-              />
+                        initial: { scale: 0 },
+                        animate: { scale: 1 },
+                        transition: { duration: 0.32, delay: 0.6, ease: EASE_SOFT },
+                      })}
+                />
+              </div>
             </div>
 
             {/* Nav rail island: pill tabs + fused amber CTA end-cap */}
