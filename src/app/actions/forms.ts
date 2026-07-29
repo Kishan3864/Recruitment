@@ -1,5 +1,6 @@
 "use server";
 
+import { getDb, schema } from "@/db/client";
 import { applicationSchema, contactSchema, RESUME_MAX_BYTES, RESUME_TYPES } from "@/lib/validation";
 
 /**
@@ -53,6 +54,24 @@ export async function submitApplication(formData: FormData): Promise<ActionResul
     return { ok: false };
   }
 
+  const db = getDb();
+  if (db) {
+    try {
+      await db.insert(schema.submissions).values({
+        kind: "application",
+        fullName: parsed.data.fullName,
+        email: parsed.data.email,
+        jobSlug: parsed.data.jobSlug || "talent-network",
+        payload: {
+          ...parsed.data,
+          resumeName: resume.name,
+          resumeSize: String(resume.size),
+        },
+      });
+    } catch (err) {
+      console.error("[application] db insert failed:", err);
+    }
+  }
   console.info(
     `[application] ${parsed.data.fullName} <${parsed.data.email}> → ${parsed.data.jobSlug || "talent-network"} (resume: ${resume.name}, ${resume.size} bytes)`
   );
@@ -65,6 +84,20 @@ export async function submitContact(formData: FormData): Promise<ActionResult> {
   const parsed = contactSchema.safeParse(fields(formData));
   if (!parsed.success) return { ok: false };
 
+  const db = getDb();
+  if (db) {
+    try {
+      await db.insert(schema.submissions).values({
+        kind: "contact",
+        fullName: parsed.data.fullName,
+        email: parsed.data.email,
+        subject: parsed.data.subject,
+        payload: parsed.data,
+      });
+    } catch (err) {
+      console.error("[contact] db insert failed:", err);
+    }
+  }
   console.info(`[contact] ${parsed.data.fullName} <${parsed.data.email}>: ${parsed.data.subject}`);
   return { ok: true };
 }

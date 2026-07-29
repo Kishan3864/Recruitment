@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import workspacePhoto from "../../../public/images/workspace.jpg";
+import workspacePhoto from "../../../../public/images/workspace.jpg";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { Container } from "@/components/shared/container";

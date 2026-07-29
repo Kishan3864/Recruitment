@@ -1,3 +1,6 @@
+import { asc, eq } from "drizzle-orm";
+
+import { safeQuery, schema } from "@/db/client";
 import { clientLogos } from "@/data/seed/logos";
 import { footerGroups, headerNav, legalNav, siteSettings } from "@/data/seed/site";
 import type {
@@ -14,7 +17,22 @@ import type {
  */
 
 export async function getSiteSettings(): Promise<SiteSettingsContent> {
-  return siteSettings;
+  const row = await safeQuery(async (db) => {
+    const [found] = await db.select().from(schema.settings).where(eq(schema.settings.key, "site"));
+    return found ?? null;
+  });
+  if (!row) return siteSettings;
+  // Deep-merge over the seed so newly added keys always have values.
+  const stored = row.value as Partial<SiteSettingsContent>;
+  return {
+    ...siteSettings,
+    ...stored,
+    ui: { ...siteSettings.ui, ...(stored.ui ?? {}) },
+    seo: { ...siteSettings.seo, ...(stored.seo ?? {}) },
+    ctaEmployers: { ...siteSettings.ctaEmployers, ...(stored.ctaEmployers ?? {}) },
+    ctaCandidates: { ...siteSettings.ctaCandidates, ...(stored.ctaCandidates ?? {}) },
+    socialLinks: stored.socialLinks ?? siteSettings.socialLinks,
+  };
 }
 
 export async function getHeaderNav(): Promise<NavItemContent[]> {
@@ -30,7 +48,10 @@ export async function getLegalNav(): Promise<NavItemContent[]> {
 }
 
 export async function getClientLogos(): Promise<ClientLogoContent[]> {
-  return clientLogos;
+  const rows = await safeQuery((db) =>
+    db.select().from(schema.clientLogos).orderBy(asc(schema.clientLogos.sort))
+  );
+  return rows ? rows.map((r) => ({ name: r.name, short: r.short })) : clientLogos;
 }
 
 /** Interpolates the copyright template from SiteSetting. */

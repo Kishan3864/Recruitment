@@ -1,16 +1,15 @@
 import type { Metadata, Viewport } from "next";
 
-import { CookieConsent } from "@/components/consent/cookie-consent";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SkipLink } from "@/components/layout/skip-link";
-import { SmoothScroll } from "@/components/providers/smooth-scroll";
-import { PwaSetup } from "@/components/pwa/pwa-setup";
 import { getSiteSettings } from "@/lib/content/site";
 import { fontDisplay, fontText } from "@/lib/fonts";
 
 import "./globals.css";
 
+/**
+ * Slim root layout: document shell + fonts + metadata only.
+ * Marketing chrome (header/footer/Lenis/consent/PWA) lives in (site)/layout;
+ * the admin panel under /admin brings its own shell.
+ */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -36,29 +35,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSiteSettings();
-
   return (
     <html lang="en" className={`${fontText.variable} ${fontDisplay.variable}`}>
-      <body className="antialiased">
-        <SkipLink label={settings.ui.skipToContent} />
-        <SmoothScroll>
-          <div className="flex min-h-dvh flex-col">
-            <SiteHeader />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
-        </SmoothScroll>
-        <CookieConsent />
-        <PwaSetup brandName={settings.brandName} />
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

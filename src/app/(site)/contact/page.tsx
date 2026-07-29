@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Building2, Clock, Mail, MapPin, Phone } from "lucide-react";
 
-import officePhoto from "../../../public/images/office.jpg";
+import officePhoto from "../../../../public/images/office.jpg";
 
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/sections/page-hero";

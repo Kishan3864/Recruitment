@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Lightbulb } from "lucide-react";
 
-import candidatePhoto from "../../../public/images/candidate.jpg";
+import candidatePhoto from "../../../../public/images/candidate.jpg";
 import { DottedRing } from "@/components/graphics/doodles";
 
 import { ApplyForm } from "@/components/forms/apply-form";

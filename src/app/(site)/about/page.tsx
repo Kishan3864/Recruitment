@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Compass, Target } from "lucide-react";
 
-import teamPhoto from "../../../public/images/team.jpg";
-import meetingPhoto from "../../../public/images/meeting.jpg";
+import teamPhoto from "../../../../public/images/team.jpg";
+import meetingPhoto from "../../../../public/images/meeting.jpg";
 
 import { FeatureGrid } from "@/components/sections/feature-grid";
 import { PageHero } from "@/components/sections/page-hero";
