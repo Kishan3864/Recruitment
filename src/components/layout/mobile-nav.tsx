@@ -48,13 +48,13 @@ export function MobileNav({
       <Dialog.Trigger asChild>
         <button
           aria-label={openLabel}
-          className="flex size-10 items-center justify-center rounded-sm border border-white/20 text-white outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="flex size-10 items-center justify-center rounded-full border border-border bg-white text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
         >
           {/* bars + amber dot — the brand glyph, not a generic hamburger */}
           <span className="relative block h-3.5 w-5" aria-hidden="true">
-            <span className="absolute top-0 left-0 h-0.5 w-5 rounded-full bg-white" />
-            <span className="absolute bottom-0 left-0 h-0.5 w-3.5 rounded-full bg-white" />
-            <span className="absolute right-0 bottom-0 size-1 rounded-full bg-cta-400" />
+            <span className="absolute top-0 left-0 h-0.5 w-5 rounded-full bg-foreground" />
+            <span className="absolute bottom-0 left-0 h-0.5 w-3.5 rounded-full bg-foreground" />
+            <span className="absolute right-0 bottom-0 size-1 rounded-full bg-cta-500" />
           </span>
         </button>
       </Dialog.Trigger>
