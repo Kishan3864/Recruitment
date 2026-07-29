@@ -27,18 +27,37 @@ export default async function AdminDashboard() {
     );
   }
 
-  const counts = await Promise.all(
-    COLLECTIONS.map(async (def) => ({ def, rows: (await def.list(db)).length }))
-  );
-  const [{ value: newSubmissions }] = await db
-    .select({ value: sql<number>`count(*)::int` })
-    .from(schema.submissions)
-    .where(eq(schema.submissions.status, "new"));
-  const recent = await db
-    .select()
-    .from(schema.submissions)
-    .orderBy(desc(schema.submissions.createdAt))
-    .limit(5);
+  let counts: { def: (typeof COLLECTIONS)[number]; rows: number }[];
+  let newSubmissions: number;
+  let recent: (typeof schema.submissions.$inferSelect)[];
+  try {
+    counts = await Promise.all(
+      COLLECTIONS.map(async (def) => ({ def, rows: (await def.list(db)).length }))
+    );
+    [{ value: newSubmissions }] = await db
+      .select({ value: sql<number>`count(*)::int` })
+      .from(schema.submissions)
+      .where(eq(schema.submissions.status, "new"));
+    recent = await db
+      .select()
+      .from(schema.submissions)
+      .orderBy(desc(schema.submissions.createdAt))
+      .limit(5);
+  } catch (err) {
+    console.error("[admin] dashboard query failed:", err);
+    return (
+      <div className="max-w-xl rounded-lg border border-line-blush bg-tint-blush p-6">
+        <p className="flex items-center gap-2 font-display font-bold">
+          <Database className="size-5 text-deep-blush" aria-hidden="true" />
+          Database connection failed
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          DATABASE_URL is set but the database rejected the connection (check the credentials, then
+          restart the app). The public site keeps running on fallback content.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10">

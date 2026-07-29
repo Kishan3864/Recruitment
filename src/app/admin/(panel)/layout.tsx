@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+/** Admin is always rendered per-request — never prerendered at build time. */
+export const dynamic = "force-dynamic";
+
 /** Admin shell: ice-blue sidebar with tint-node nav, topbar with session. */
 export default async function AdminPanelLayout({
   children,
