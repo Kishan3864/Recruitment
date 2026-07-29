@@ -99,7 +99,10 @@ export default async function AdminPanelLayout({
         <AdminNav groups={groups} />
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      {/* min-h-0 is load-bearing: without it this column's automatic min
+          height is its content height, the frame clips it, the tab bar
+          disappears and <main> never scrolls. */}
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <header className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-white px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 select-none lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <Link
@@ -131,7 +134,13 @@ export default async function AdminPanelLayout({
           </div>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <Button asChild size="sm" variant="outline">
-              <Link href="/" target="_blank" aria-label="View site (opens in a new tab)">
+              {/* Absolute URL: when the panel runs on the admin subdomain,
+                  "/" would loop back into the panel. */}
+              <Link
+                href={process.env.NEXT_PUBLIC_SITE_URL ?? "/"}
+                target="_blank"
+                aria-label="View site (opens in a new tab)"
+              >
                 <span className="hidden sm:inline">View site</span>
                 <ExternalLink data-icon="inline-end" aria-hidden="true" />
               </Link>
