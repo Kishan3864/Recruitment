@@ -1,13 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
+import { CookieConsent } from "@/components/consent/cookie-consent";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { PwaSetup } from "@/components/pwa/pwa-setup";
 import { getSiteSettings } from "@/lib/content/site";
 import { fontDisplay, fontText } from "@/lib/fonts";
 
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#f6f7fb",
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -18,6 +27,12 @@ export async function generateMetadata(): Promise<Metadata> {
       template: settings.seo.titleTemplate,
     },
     description: settings.seo.defaultDescription,
+    applicationName: settings.brandName,
+    appleWebApp: {
+      capable: true,
+      title: settings.brandName,
+      statusBarStyle: "default",
+    },
   };
 }
 
@@ -41,6 +56,8 @@ export default async function RootLayout({
             <SiteFooter />
           </div>
         </SmoothScroll>
+        <CookieConsent />
+        <PwaSetup brandName={settings.brandName} />
       </body>
     </html>
   );
