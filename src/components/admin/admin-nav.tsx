@@ -23,20 +23,37 @@ export interface AdminNavGroup {
 
 /**
  * Admin sidebar nav — the site's junction language: every item carries its
- * tint node dot; the active route's node lights up with ring + glow. Items
- * are grouped under eyebrow headings (headings hide on the mobile rail).
+ * tint node dot; the active route's node lights up with ring + glow.
+ * variant "sidebar" is the desktop rail (headings appear at lg);
+ * variant "drawer" is always vertical with headings, for the mobile drawer.
  */
-export function AdminNav({ groups }: { groups: AdminNavGroup[] }) {
+export function AdminNav({
+  groups,
+  variant = "sidebar",
+}: {
+  groups: AdminNavGroup[];
+  variant?: "sidebar" | "drawer";
+}) {
   const pathname = usePathname();
+  const drawer = variant === "drawer";
 
   return (
     <nav
       aria-label="Admin"
-      className="flex gap-4 overflow-x-auto p-3 lg:flex-col lg:gap-5 lg:overflow-visible lg:p-4"
+      className={cn(
+        drawer
+          ? "flex flex-col gap-5 p-4"
+          : "flex gap-4 overflow-x-auto p-3 lg:flex-col lg:gap-5 lg:overflow-visible lg:p-4"
+      )}
     >
       {groups.map((group) => (
-        <div key={group.title} className="flex shrink-0 gap-1 lg:flex-col">
-          <p className="hidden px-3 pb-1.5 text-eyebrow font-semibold text-muted-foreground uppercase lg:block">
+        <div key={group.title} className={cn("flex gap-1", drawer ? "flex-col" : "shrink-0 lg:flex-col")}>
+          <p
+            className={cn(
+              "px-3 pb-1.5 text-eyebrow font-semibold text-muted-foreground uppercase",
+              drawer ? "block" : "hidden lg:block"
+            )}
+          >
             {group.title}
           </p>
           {group.items.map((item) => {

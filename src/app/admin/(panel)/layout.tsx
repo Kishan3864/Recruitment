@@ -4,6 +4,7 @@ import { eq, sql } from "drizzle-orm";
 import { ExternalLink, LogOut } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/auth-actions";
+import { AdminDrawer } from "@/components/admin/admin-drawer";
 import { AdminNav, type AdminNavGroup } from "@/components/admin/admin-nav";
 import { AdminPwaSetup } from "@/components/admin/admin-pwa-setup";
 import { AdminTabBar, type AdminTab } from "@/components/admin/admin-tab-bar";
@@ -105,6 +106,7 @@ export default async function AdminPanelLayout({
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <header className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-white px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 select-none lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
+            <AdminDrawer groups={groups} />
             <Link
               href="/admin"
               className="shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/60 lg:hidden"
